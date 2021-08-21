@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>mysql练习 | Hexo</title>
+  <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="数据库中常使用的操作SELECT NAME,age FROM student; – 查询姓名和年龄 SELECT address FROM student; – 查询地址 SELECT DISTINCT address FROM student; – 去除以上结果集的重复内容 SELECT NAME,math,english,math+english FROM student;– 计算math和e">
+  <meta name="description" content="hexo+github创建博客学习笔记！#安装Nodejsnode -v    #查看node版本npm -v    #查看npm版本npm install -g cnpm –registry&#x3D;http:&#x2F;&#x2F;registry.npm.taobao.org    #安装淘宝的cnpm 管理器cnpm -v    #查看cnpm版本cnpm install -g hexo-cli    #安装hexo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mysql练习">
-<meta property="og:url" content="http://example.com/2021/08/21/mysql%E7%BB%83%E4%B9%A0/index.html">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2021/08/21/hexo+githun%E5%88%9B%E5%BB%BAblog/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="数据库中常使用的操作SELECT NAME,age FROM student; – 查询姓名和年龄 SELECT address FROM student; – 查询地址 SELECT DISTINCT address FROM student; – 去除以上结果集的重复内容 SELECT NAME,math,english,math+english FROM student;– 计算math和e">
+<meta property="og:description" content="hexo+github创建博客学习笔记！#安装Nodejsnode -v    #查看node版本npm -v    #查看npm版本npm install -g cnpm –registry&#x3D;http:&#x2F;&#x2F;registry.npm.taobao.org    #安装淘宝的cnpm 管理器cnpm -v    #查看cnpm版本cnpm install -g hexo-cli    #安装hexo">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-08-21T08:45:21.000Z">
-<meta property="article:modified_time" content="2021-08-21T08:46:20.409Z">
+<meta property="article:published_time" content="2021-08-21T13:49:27.763Z">
+<meta property="article:modified_time" content="2021-08-21T13:53:18.404Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -154,33 +154,27 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-mysql练习" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-hexo+githun创建blog" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      mysql练习
-    </h1>
-  
-
-        
-        <a href="/2021/08/21/mysql%E7%BB%83%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2021-08-21T08:45:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-21</time>
-</a>
-        
-      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>数据库中常使用的操作<br>SELECT NAME,age FROM student; – 查询姓名和年龄</p>
-<p>SELECT address FROM student; – 查询地址</p>
-<p>SELECT DISTINCT address FROM student; – 去除以上结果集的重复内容</p>
-<p>SELECT NAME,math,english,math+english FROM student;– 计算math和english分数之和</p>
-<p>– 以上结果集中柳青的和为null,因为如果有null参与运算，计算的结果都是null，使用以下操作：<br>SELECT NAME,math,english,math+IFNULL(english,0)FROM student;– 如果出现null用0代替</p>
-<p>– 起别名，使用AS ,如下(当然as可以省略):<br>SELECT NAME,math 数学,english 英语,math + IFNULL(english,0) 总分 FROM student;</p>
-<p>– 条件查询<br>SELECT * FROM student WHERE age&gt;20 &amp;&amp; age&lt;30;– 查询年龄大于20小于30的人<br>SELECT * FROM student WHERE NAME LIKE ‘马%’;– 查询名字第一个是马的人<br>SELECT * FROM student WHERE NAME LIKE ‘_化%’– 查询名字第二个是化的人<br>– 排序查询<br>SELECT * FROM student ORDER BY math ASC;– 按照数学成绩升序进行排序，ASC可以不写，默认升序<br>SELECT * FROM student ORDER BY math ASC,english ASC;– 按照数学成绩升序进行排序,数学成绩一样就按英语成绩升序排序<br>– 聚合函数查询<br>SELECT COUNT(NAME) FROM student;– 统计有多少学生<br>SELECT COUNT(IFNULL(english,0)) AS 英语 FROM student;– 根据英语成绩统计学生人数<br>– 求出math的最大，最小，总分和平均值<br>SELECT MAX(math) FROM student;<br>SELECT MIN(math) FROM student;<br>SELECT SUM(math) FROM student;<br>SELECT AVG(math) FROM student;<br>– 分组查询<br>SELECT sex,AVG(math),COUNT(id) FROM student GROUP BY sex;– 按照性别进行分组，分别查询男女同学的数学平均分和人数(如果分组之后查询的字段不是分组字段没有任何意义(sex,sex)。)<br>– 按照性别进行分组，分别查询男，女同学的数学平均分和人数,要求分数低于70分的不参与分组,且分组之后只显示人数大于2个人的<br>SELECT sex,AVG(math),COUNT(id) FROM student WHERE math&gt;=70 GROUP BY sex;<br>– 分页查询<br>– 每页显示三条数据<br>SELECT * FROM student LIMIT 0,3; – 第一页 0为开始的下标，3为显示的条数<br>SELECT * FROM student LIMIT 3,3; – 第二页</p>
+        <h2 id="hexo-github创建博客学习笔记！"><a href="#hexo-github创建博客学习笔记！" class="headerlink" title="hexo+github创建博客学习笔记！"></a>hexo+github创建博客学习笔记！</h2><p>#安装Nodejs<br>node -v    #查看node版本<br>npm -v    #查看npm版本<br>npm install -g cnpm –registry=<a target="_blank" rel="noopener" href="http://registry.npm.taobao.org/">http://registry.npm.taobao.org</a>    #安装淘宝的cnpm 管理器<br>cnpm -v    #查看cnpm版本<br>cnpm install -g hexo-cli    #安装hexo框架<br>hexo -v    #查看hexo版本</p>
+<hr>
+<p>mkdir blog    #创建blog目录<br>cd blog     #进入blog目录<br>sudo hexo init     #生成博客 初始化博客<br>hexo s    #启动本地博客服务<br><a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a>    #本地访问地址<br>hexo n “我的第一篇文章” #创建新的文章<br>#返回blog目录<br>hexo clean #清理<br>hexo g #生成<br>#Github创建一个新的仓库 YourGithubName.github.io<br>cnpm install –save hexo-deployer-git #在blog目录下安装git部署插件</p>
+<hr>
+<h2 id="配置-config-yml"><a href="#配置-config-yml" class="headerlink" title="#配置_config.yml "></a>#配置_config.yml </h2><pre><code># Deployment
+## Docs: https://hexo.io/docs/deployment.html
+deploy:
+      type: git
+     repo: https://github.com/YourGithubName/YourGithubName.github.io.git
+      branch: master
+</code></pre>
+<hr>
+<p>hexo d    #部署到Github仓库里<br><a target="_blank" rel="noopener" href="https://yourgithubname.github.io/">https://YourGithubName.github.io/</a>  #访问这个地址可以查看博客</p>
+<p> git clone <a target="_blank" rel="noopener" href="https://github.com/litten/hexo-theme-yilia.git">https://github.com/litten/hexo-theme-yilia.git</a> themes/yilia  #下载yilia主题到本地</p>
+<p>#修改hexo根目录下的 _config.yml 文件 ： theme: yilia</p>
+<p>hexo c    #清理一下<br>hexo g    #生成<br>hexo d    #部署到远程Github仓库<br><a target="_blank" rel="noopener" href="https://yourgithubname.github.io/">https://YourGithubName.github.io/</a>  #查看博客​</p>
 
       
 
@@ -260,7 +254,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/08/21/mysql%E7%BB%83%E4%B9%A0/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/08/21/hexo+githun%E5%88%9B%E5%BB%BAblog/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -274,18 +268,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/08/21/hexo+githun%E5%88%9B%E5%BB%BAblog/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          (no title)
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/08/21/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hello World</div>
+    <a href="/2021/08/21/mysql%E7%BB%83%E4%B9%A0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql练习</div>
       <i class="icon-circle-right"></i>
     </a>
   
