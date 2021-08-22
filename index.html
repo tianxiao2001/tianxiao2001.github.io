@@ -152,189 +152,27 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-JDBC学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h2 id="JDBC学习笔记"><a href="#JDBC学习笔记" class="headerlink" title="JDBC学习笔记"></a>JDBC学习笔记</h2><h3 id="JDBC学习笔记-1"><a href="#JDBC学习笔记-1" class="headerlink" title="JDBC学习笔记"></a>JDBC学习笔记</h3><p>1.java程序员不需要关心具体是哪个品牌的数据库，只需要面向JDBC接口写代码。面向接口编程，面向抽象编程，不要面向具体编程</p>
-<h5 id="2-JDBC编程六步（需要背会）："><a href="#2-JDBC编程六步（需要背会）：" class="headerlink" title="2.JDBC编程六步（需要背会）："></a>2.JDBC编程六步（需要背会）：</h5><p>第一步：注册驱动（作用：告诉Java程序，即将要连接的是哪个品牌的数据库）<br>第二步：获取连接（表示JVM的进程和数据库进程之间的通道打开了，这是属于进程之间的通信，重量级的，使用之完后一定要关闭。<br>第三步：获取数据库操作对象（专门执行sql语句的对象）<br>第四步：执行SQL语句（DQL DML……）（使用Statement创建的对象调用executeUpdate方法，实现向表中增删改数据，查用executeQuery方法）<br>             int executeUpdate(insert/delete/update)<br>             ResultSet executeQuery(select)<br>第五步：处理查询结果集（只有当第四步执行的是select语句的时候，才有这第五步处理查询结果集。）<br>第六步：释放资源（使用完资源之后一定要关闭资源。java和数据库之间属于进程间的通信，开启之后一定要关闭）</p>
-<p>4.漏洞：用户名：fdsa<br>           密码：fdsa’ or ‘1’=’1   （密码被当做了sql语句的一部分）<br>           登录成功<br>       这种现象被称为SQL注入（安全隐患）。（黑客经常使用）</p>
-<h5 id="5-导致SQL注入的根本原因是什么？"><a href="#5-导致SQL注入的根本原因是什么？" class="headerlink" title="5.导致SQL注入的根本原因是什么？"></a>5.导致SQL注入的根本原因是什么？</h5><p>​          用户输入的信息中含有sql语句的关键字，并且这些关键字参与sql语句的编辑过程<br>​          导致sql语句的原意被扭曲，进而达到sql注入</p>
-<pre><code> 解决JDBCTest02中的sql注入问题
-      只要用户提供的信息不参与SQL语句的编译过程，问题就解决了。
-      即使用户输入的信息中含有SQL语句关键字，但没有参与编译，不起作用
-      要想用户输入的信息不参与编译，那么必须使用java.sql.PreparedStatement
-      PreparedStatement接口继承了java.sql.Statement
-      PreparedStatement是属于编译的数据库操作对象
-      原理：预先对SQL语句的框架进行编译，然后再给SQL语句传值
-</code></pre>
-<h5 id="6-对比一下Statement和PreparedStatement"><a href="#6-对比一下Statement和PreparedStatement" class="headerlink" title="6.对比一下Statement和PreparedStatement"></a>6.对比一下Statement和PreparedStatement</h5><p>​          Statement存在sql注入问题，PreparedStatement解决了sql注入问题<br>​          Statement是编译一次，执行一次。PreparedStatement是编译一次，可执行n次。PreparedStatement效率更高<br>​          PreparedStatement会在编译阶段做类型的安全检查<br>​          综上所述：PreparedStatement使用较多，只有极少数的情况下需要使用Statement</p>
-<h5 id="7-什么情况下必须使用Statement？"><a href="#7-什么情况下必须使用Statement？" class="headerlink" title="7.什么情况下必须使用Statement？"></a>7.什么情况下必须使用Statement？</h5><p>​          1.业务要求必须支持SQL注入的时候<br>​          2.业务要求是需要进行sql语句拼接的时候</p>
-<ol start="8">
-<li><h5 id="JDBC事务机制："><a href="#JDBC事务机制：" class="headerlink" title="JDBC事务机制："></a>JDBC事务机制：</h5><p> 1.JDBC中的事务是自动提交的，什么是自动提交？</p>
-<pre><code> 只要执行任意一条DML语句，则自动提交一次，这是JDBC默认的事务行为。
- 但是在实际的业务当中，通常都是n条DML语句共同联合才能完成的，必须保证他们这些DML语句在同一个事务中同时成功或者同时失败
-</code></pre>
-</li>
-<li><h5 id="将自动提交机制改为手动提交"><a href="#将自动提交机制改为手动提交" class="headerlink" title="//将自动提交机制改为手动提交"></a>//将自动提交机制改为手动提交</h5><p> ​        conn.setAutoCommit(false);//开启事务<br> //程序能够走到这里，说明以上程序没有异常，事务结束，手动提交数据<br> ​        conn.commit();//提交事务<br>//遇到异常要回滚<br>​         conn.rollback();//回滚事务</p>
-<h5 id="10-悲观锁乐观锁"><a href="#10-悲观锁乐观锁" class="headerlink" title="10.悲观锁乐观锁"></a>10.悲观锁乐观锁</h5><p> 悲观锁：事务必须要排队执行，数据锁住了，不允许并发（sql语句后加 for update）<br> 乐观锁：支持并发，事务也不需要排队，只不过需要一个版本号<br> package src.com.tx.test;<br> import java.sql.*;</p>
-</li>
-</ol>
-<p>public class JDBCTest01 {<br>    public static void main(String[] args) {<br>        Connection conn = null;<br>        Statement sta = null;<br>        try {<br>            <strong>//1.注册驱动</strong><br>            try {<br>                Class.forName(“com.mysql.cj.jdbc.Driver”);<br>            } catch (ClassNotFoundException e) {<br>                e.printStackTrace();<br>            }<br>            <strong>//2.获得连接</strong><br>            conn= DriverManager.getConnection(“jdbc:mysql://localhost:3306/day715?serverTimezone=UTC&amp;characterEncoding=utf8&amp;useUnicode=true&amp;useSSL=false”,”root”,”200153”);<br>            <strong>//3.获得执行语句平台</strong><br>            sta =conn.createStatement();<br>            <strong>//4.执行sql语句</strong><br>//            String sql=” INSERT INTO <code>day715</code>.<code>student</code>(<code>id</code>,<code>name</code>,<code>phone</code>,<code>source</code>) VALUES ( ‘4’,’伍毅’,’13968978569’,’89’);”;<br>//            int count=sta.executeUpdate(sql);<br>//              System.out.println(count);<br>            String sql=”select id,name,phone,source from student”;<br>            ResultSet rs=sta.executeQuery(sql);<br>            <strong>//5.处理查询结果集</strong><br>          while (rs.next()) {<br>              //光标指向的行有数据<br>              //取数据<br>              //getString()方法的特点是，不管数据库中的数据类型是什么，都以String的形式取出.<br>              //columnIndex的含义是数据库表的列<br>              String id = rs.getString(“id”);<br>              String name = rs.getString(“name”);<br>              String phone = rs.getString(“phone”);<br>              String source = rs.getString(“source”);<br>              System.out.println(id+”,”+name+”,”+phone+”,”+source);<br>          }</p>
-<pre><code>    &#125; catch (SQLException e) &#123;
-        e.printStackTrace();
-    &#125;finally &#123;
-        //6.释放资源
-        //为保证释放所有资源，写在finally语句中
-        //按照从大到小的顺序释放
-        //分别对其try..catch
-        if(sta!=null)&#123;
-            try &#123;
-                sta.close();
-            &#125; catch (SQLException e) &#123;
-                e.printStackTrace();
-            &#125;
-        &#125;
-        if(conn!=null)&#123;
-            try &#123;
-                conn.close();
-            &#125; catch (SQLException e) &#123;
-                e.printStackTrace();
-            &#125;
-        &#125;
-    &#125;
-
-&#125;
-</code></pre>
-<p>}</p>
-<p>package src.com.tx.test;</p>
-<p>import java.sql.<em>;<br>import java.util.HashMap;<br>import java.util.Map;<br>import java.util.Scanner;<br>/</em></p>
-<h5 id="1-解决JDBCTest02中的sql注入问题"><a href="#1-解决JDBCTest02中的sql注入问题" class="headerlink" title="1.解决JDBCTest02中的sql注入问题"></a>1.解决JDBCTest02中的sql注入问题</h5><p>​          只要用户提供的信息不参与SQL语句的编译过程，问题就解决了。<br>​          即使用户输入的信息中含有SQL语句关键字，但没有参与编译，不起作用<br>​          要想用户输入的信息不参与编译，那么必须使用java.sql.PreparedStatement<br>​          PreparedStatement接口继承了java.sql.Statement<br>​          PreparedStatement是属于编译的数据库操作对象<br>​          原理：预先对SQL语句的框架进行编译，然后再给SQL语句传值<br> */</p>
-<p>public class JDBCTest03 {<br>    public static void main(String[] args) {<br>        while (true) {<br>            /* 初始化一个界面 */<br>            Map&lt;String, String&gt; userloginInfo = initUI();<br>            //验证用户名和密码<br>            boolean loginSuccess = login(userloginInfo);<br>            System.out.println(loginSuccess ? “登录成功” : “登录失败”);<br>        }<br>    }</p>
-<pre><code>/*
-用户登录
- */
-private static boolean login(Map&lt;String, String&gt; userloginInfo) &#123;
-    boolean loginSuccess=false;
-    String username=userloginInfo.get(&quot;username&quot;);
-    String password=userloginInfo.get(&quot;password&quot;);
-    //JDBC代码
-    PreparedStatement psta = null;
-    Connection conn = null;
-    ResultSet rs = null;
-    try &#123;
-        //1.注册驱动
-        Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);
-        //2.获取数据库连接
-        conn = DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/day715?serverTimezone=UTC&amp;characterEncoding=utf8&amp;useUnicode=true&amp;useSSL=false&quot;, &quot;root&quot;, &quot;200153&quot;);
-        //3.获取数据库对象
-        //SQL语句的框架，其中一个？表示一个占位符，接收一个值，注意：占位符不能用单引号括起来。
-        String sql = &quot;select * from login where username=? and password=?&quot;;
-        //程序执行到此处，会发送sql语句给DBMS，然后DBMS进行sql语句的预先编译
-        psta = conn.prepareStatement(sql);
-        //给占位符？传值（第一个？的下标是1，第二个是2。JDBC中所有的下标从1开始）
-        psta.setString(1, username);
-        psta.setString(2, password);
-        //4.执行sql语句
-        rs=psta.executeQuery();
-        if(rs.next())&#123;
-            //登录成功
-            loginSuccess =true;
-        &#125;
-    &#125; catch (ClassNotFoundException | SQLException e) &#123;
-        e.printStackTrace();
-    &#125; finally &#123;
-        //5.释放资源
-        if (rs != null) &#123;
-            try &#123;
-                rs.close();
-            &#125; catch (SQLException e) &#123;
-                e.printStackTrace();
-            &#125;
-            if (conn != null) &#123;
-                try &#123;
-                    conn.close();
-                &#125; catch (SQLException e) &#123;
-                    e.printStackTrace();
-                &#125;
-                if (psta != null) &#123;
-                    try &#123;
-                        psta.close();
-                    &#125; catch (SQLException e) &#123;
-                        e.printStackTrace();
-                    &#125;
-                &#125;
-            &#125;
-        &#125;
-        return loginSuccess;
-    &#125;
-&#125;
-private static Map&lt;String, String&gt; initUI() &#123;
-    Scanner sc = new Scanner(System.in);
-    System.out.println(&quot;用户名：&quot;);
-
-    String username = sc.nextLine();
-    System.out.println(&quot;密码：&quot;);
-
-    String password = sc.nextLine();
-    Map&lt;String, String&gt; userloginInfo = new HashMap&lt;&gt;();
-    userloginInfo.put(&quot;username&quot;, username);
-    userloginInfo.put(&quot;password&quot;, password);
-    return userloginInfo;
-&#125;
-</code></pre>
-<p>}</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/22/JDBC%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-常用代码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/22/%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81/">常用代码</a>
+    </h1>
+  
+
+        
+        <a href="/2021/08/22/%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81/" class="archive-article-date">
+  	<time datetime="2021-08-22T08:45:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-22</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
-<h2 id="title-常用代码"><a href="#title-常用代码" class="headerlink" title="title:常用代码"></a>title:常用代码</h2><h4 id="connector包："><a href="#connector包：" class="headerlink" title="connector包："></a><strong>connector包：</strong></h4> <dependency>
+        <h4 id="connector包："><a href="#connector包：" class="headerlink" title="connector包："></a><strong>connector包：</strong></h4> <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.24</version>
@@ -386,12 +224,24 @@ private static Map&lt;String, String&gt; initUI() &#123;
     <article id="post-hexo+githun创建blog" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/21/hexo+githun%E5%88%9B%E5%BB%BAblog/">hexo+github创建blog</a>
+    </h1>
+  
+
+        
+        <a href="/2021/08/21/hexo+githun%E5%88%9B%E5%BB%BAblog/" class="archive-article-date">
+  	<time datetime="2021-08-21T08:45:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-21</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
-<p>hexo+github创建blog</p>
-<hr>
-<h2 id="hexo-github创建blog"><a href="#hexo-github创建blog" class="headerlink" title="hexo+github创建blog"></a>hexo+github创建blog</h2><p>#安装Nodejs<br>node -v    #查看node版本<br>npm -v    #查看npm版本<br>npm install -g cnpm –registry=<a target="_blank" rel="noopener" href="http://registry.npm.taobao.org/">http://registry.npm.taobao.org</a>    #安装淘宝的cnpm 管理器<br>cnpm -v    #查看cnpm版本<br>cnpm install -g hexo-cli    #安装hexo框架<br>hexo -v    #查看hexo版本</p>
+        <h2 id="hexo-github创建blog"><a href="#hexo-github创建blog" class="headerlink" title="hexo+github创建blog"></a>hexo+github创建blog</h2><p>#安装Nodejs<br>node -v    #查看node版本<br>npm -v    #查看npm版本<br>npm install -g cnpm –registry=<a target="_blank" rel="noopener" href="http://registry.npm.taobao.org/">http://registry.npm.taobao.org</a>    #安装淘宝的cnpm 管理器<br>cnpm -v    #查看cnpm版本<br>cnpm install -g hexo-cli    #安装hexo框架<br>hexo -v    #查看hexo版本</p>
 <hr>
 <p>mkdir blog    #创建blog目录<br>cd blog     #进入blog目录<br>sudo hexo init     #生成博客 初始化博客<br>hexo s    #启动本地博客服务<br><a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a>    #本地访问地址<br>hexo n “我的第一篇文章” #创建新的文章<br>#返回blog目录<br>hexo clean #清理<br>hexo g #生成<br>#Github创建一个新的仓库 YourGithubName.github.io</p>
 <p>cnpm install –save hexo-deployer-git #在blog目录下安装git部署插件</p>
@@ -566,6 +416,196 @@ deploy:
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/08/21/hello-world/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-JDBC学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/21/JDBC%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">JDBC学习笔记</a>
+    </h1>
+  
+
+        
+        <a href="/2021/08/21/JDBC%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2021-08-21T08:38:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="JDBC学习笔记"><a href="#JDBC学习笔记" class="headerlink" title="JDBC学习笔记"></a>JDBC学习笔记</h3><p>1.java程序员不需要关心具体是哪个品牌的数据库，只需要面向JDBC接口写代码。面向接口编程，面向抽象编程，不要面向具体编程</p>
+<h5 id="2-JDBC编程六步（需要背会）："><a href="#2-JDBC编程六步（需要背会）：" class="headerlink" title="2.JDBC编程六步（需要背会）："></a>2.JDBC编程六步（需要背会）：</h5><p>第一步：注册驱动（作用：告诉Java程序，即将要连接的是哪个品牌的数据库）<br>第二步：获取连接（表示JVM的进程和数据库进程之间的通道打开了，这是属于进程之间的通信，重量级的，使用之完后一定要关闭。<br>第三步：获取数据库操作对象（专门执行sql语句的对象）<br>第四步：执行SQL语句（DQL DML……）（使用Statement创建的对象调用executeUpdate方法，实现向表中增删改数据，查用executeQuery方法）<br>             int executeUpdate(insert/delete/update)<br>             ResultSet executeQuery(select)<br>第五步：处理查询结果集（只有当第四步执行的是select语句的时候，才有这第五步处理查询结果集。）<br>第六步：释放资源（使用完资源之后一定要关闭资源。java和数据库之间属于进程间的通信，开启之后一定要关闭）</p>
+<p>4.漏洞：用户名：fdsa<br>           密码：fdsa’ or ‘1’=’1   （密码被当做了sql语句的一部分）<br>           登录成功<br>       这种现象被称为SQL注入（安全隐患）。（黑客经常使用）</p>
+<h5 id="5-导致SQL注入的根本原因是什么？"><a href="#5-导致SQL注入的根本原因是什么？" class="headerlink" title="5.导致SQL注入的根本原因是什么？"></a>5.导致SQL注入的根本原因是什么？</h5><p>​          用户输入的信息中含有sql语句的关键字，并且这些关键字参与sql语句的编辑过程<br>​          导致sql语句的原意被扭曲，进而达到sql注入</p>
+<pre><code> 解决JDBCTest02中的sql注入问题
+      只要用户提供的信息不参与SQL语句的编译过程，问题就解决了。
+      即使用户输入的信息中含有SQL语句关键字，但没有参与编译，不起作用
+      要想用户输入的信息不参与编译，那么必须使用java.sql.PreparedStatement
+      PreparedStatement接口继承了java.sql.Statement
+      PreparedStatement是属于编译的数据库操作对象
+      原理：预先对SQL语句的框架进行编译，然后再给SQL语句传值
+</code></pre>
+<h5 id="6-对比一下Statement和PreparedStatement"><a href="#6-对比一下Statement和PreparedStatement" class="headerlink" title="6.对比一下Statement和PreparedStatement"></a>6.对比一下Statement和PreparedStatement</h5><p>​          Statement存在sql注入问题，PreparedStatement解决了sql注入问题<br>​          Statement是编译一次，执行一次。PreparedStatement是编译一次，可执行n次。PreparedStatement效率更高<br>​          PreparedStatement会在编译阶段做类型的安全检查<br>​          综上所述：PreparedStatement使用较多，只有极少数的情况下需要使用Statement</p>
+<h5 id="7-什么情况下必须使用Statement？"><a href="#7-什么情况下必须使用Statement？" class="headerlink" title="7.什么情况下必须使用Statement？"></a>7.什么情况下必须使用Statement？</h5><p>​          1.业务要求必须支持SQL注入的时候<br>​          2.业务要求是需要进行sql语句拼接的时候</p>
+<ol start="8">
+<li><h5 id="JDBC事务机制："><a href="#JDBC事务机制：" class="headerlink" title="JDBC事务机制："></a>JDBC事务机制：</h5><p> 1.JDBC中的事务是自动提交的，什么是自动提交？</p>
+<pre><code> 只要执行任意一条DML语句，则自动提交一次，这是JDBC默认的事务行为。
+ 但是在实际的业务当中，通常都是n条DML语句共同联合才能完成的，必须保证他们这些DML语句在同一个事务中同时成功或者同时失败
+</code></pre>
+</li>
+<li><h5 id="将自动提交机制改为手动提交"><a href="#将自动提交机制改为手动提交" class="headerlink" title="//将自动提交机制改为手动提交"></a>//将自动提交机制改为手动提交</h5><p> ​        conn.setAutoCommit(false);//开启事务<br> //程序能够走到这里，说明以上程序没有异常，事务结束，手动提交数据<br> ​        conn.commit();//提交事务<br>//遇到异常要回滚<br>​         conn.rollback();//回滚事务</p>
+<h5 id="10-悲观锁乐观锁"><a href="#10-悲观锁乐观锁" class="headerlink" title="10.悲观锁乐观锁"></a>10.悲观锁乐观锁</h5><p> 悲观锁：事务必须要排队执行，数据锁住了，不允许并发（sql语句后加 for update）<br> 乐观锁：支持并发，事务也不需要排队，只不过需要一个版本号<br> package src.com.tx.test;<br> import java.sql.*;</p>
+</li>
+</ol>
+<p>public class JDBCTest01 {<br>    public static void main(String[] args) {<br>        Connection conn = null;<br>        Statement sta = null;<br>        try {<br>            <strong>//1.注册驱动</strong><br>            try {<br>                Class.forName(“com.mysql.cj.jdbc.Driver”);<br>            } catch (ClassNotFoundException e) {<br>                e.printStackTrace();<br>            }<br>            <strong>//2.获得连接</strong><br>            conn= DriverManager.getConnection(“jdbc:mysql://localhost:3306/day715?serverTimezone=UTC&amp;characterEncoding=utf8&amp;useUnicode=true&amp;useSSL=false”,”root”,”200153”);<br>            <strong>//3.获得执行语句平台</strong><br>            sta =conn.createStatement();<br>            <strong>//4.执行sql语句</strong><br>//            String sql=” INSERT INTO <code>day715</code>.<code>student</code>(<code>id</code>,<code>name</code>,<code>phone</code>,<code>source</code>) VALUES ( ‘4’,’伍毅’,’13968978569’,’89’);”;<br>//            int count=sta.executeUpdate(sql);<br>//              System.out.println(count);<br>            String sql=”select id,name,phone,source from student”;<br>            ResultSet rs=sta.executeQuery(sql);<br>            <strong>//5.处理查询结果集</strong><br>          while (rs.next()) {<br>              //光标指向的行有数据<br>              //取数据<br>              //getString()方法的特点是，不管数据库中的数据类型是什么，都以String的形式取出.<br>              //columnIndex的含义是数据库表的列<br>              String id = rs.getString(“id”);<br>              String name = rs.getString(“name”);<br>              String phone = rs.getString(“phone”);<br>              String source = rs.getString(“source”);<br>              System.out.println(id+”,”+name+”,”+phone+”,”+source);<br>          }</p>
+<pre><code>    &#125; catch (SQLException e) &#123;
+        e.printStackTrace();
+    &#125;finally &#123;
+        //6.释放资源
+        //为保证释放所有资源，写在finally语句中
+        //按照从大到小的顺序释放
+        //分别对其try..catch
+        if(sta!=null)&#123;
+            try &#123;
+                sta.close();
+            &#125; catch (SQLException e) &#123;
+                e.printStackTrace();
+            &#125;
+        &#125;
+        if(conn!=null)&#123;
+            try &#123;
+                conn.close();
+            &#125; catch (SQLException e) &#123;
+                e.printStackTrace();
+            &#125;
+        &#125;
+    &#125;
+
+&#125;
+</code></pre>
+<p>}</p>
+<p>package src.com.tx.test;</p>
+<p>import java.sql.<em>;<br>import java.util.HashMap;<br>import java.util.Map;<br>import java.util.Scanner;<br>/</em></p>
+<h5 id="1-解决JDBCTest02中的sql注入问题"><a href="#1-解决JDBCTest02中的sql注入问题" class="headerlink" title="1.解决JDBCTest02中的sql注入问题"></a>1.解决JDBCTest02中的sql注入问题</h5><p>​          只要用户提供的信息不参与SQL语句的编译过程，问题就解决了。<br>​          即使用户输入的信息中含有SQL语句关键字，但没有参与编译，不起作用<br>​          要想用户输入的信息不参与编译，那么必须使用java.sql.PreparedStatement<br>​          PreparedStatement接口继承了java.sql.Statement<br>​          PreparedStatement是属于编译的数据库操作对象<br>​          原理：预先对SQL语句的框架进行编译，然后再给SQL语句传值<br> */</p>
+<p>public class JDBCTest03 {<br>    public static void main(String[] args) {<br>        while (true) {<br>            /* 初始化一个界面 */<br>            Map&lt;String, String&gt; userloginInfo = initUI();<br>            //验证用户名和密码<br>            boolean loginSuccess = login(userloginInfo);<br>            System.out.println(loginSuccess ? “登录成功” : “登录失败”);<br>        }<br>    }</p>
+<pre><code>/*
+用户登录
+ */
+private static boolean login(Map&lt;String, String&gt; userloginInfo) &#123;
+    boolean loginSuccess=false;
+    String username=userloginInfo.get(&quot;username&quot;);
+    String password=userloginInfo.get(&quot;password&quot;);
+    //JDBC代码
+    PreparedStatement psta = null;
+    Connection conn = null;
+    ResultSet rs = null;
+    try &#123;
+        //1.注册驱动
+        Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);
+        //2.获取数据库连接
+        conn = DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/day715?serverTimezone=UTC&amp;characterEncoding=utf8&amp;useUnicode=true&amp;useSSL=false&quot;, &quot;root&quot;, &quot;200153&quot;);
+        //3.获取数据库对象
+        //SQL语句的框架，其中一个？表示一个占位符，接收一个值，注意：占位符不能用单引号括起来。
+        String sql = &quot;select * from login where username=? and password=?&quot;;
+        //程序执行到此处，会发送sql语句给DBMS，然后DBMS进行sql语句的预先编译
+        psta = conn.prepareStatement(sql);
+        //给占位符？传值（第一个？的下标是1，第二个是2。JDBC中所有的下标从1开始）
+        psta.setString(1, username);
+        psta.setString(2, password);
+        //4.执行sql语句
+        rs=psta.executeQuery();
+        if(rs.next())&#123;
+            //登录成功
+            loginSuccess =true;
+        &#125;
+    &#125; catch (ClassNotFoundException | SQLException e) &#123;
+        e.printStackTrace();
+    &#125; finally &#123;
+        //5.释放资源
+        if (rs != null) &#123;
+            try &#123;
+                rs.close();
+            &#125; catch (SQLException e) &#123;
+                e.printStackTrace();
+            &#125;
+            if (conn != null) &#123;
+                try &#123;
+                    conn.close();
+                &#125; catch (SQLException e) &#123;
+                    e.printStackTrace();
+                &#125;
+                if (psta != null) &#123;
+                    try &#123;
+                        psta.close();
+                    &#125; catch (SQLException e) &#123;
+                        e.printStackTrace();
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+        return loginSuccess;
+    &#125;
+&#125;
+private static Map&lt;String, String&gt; initUI() &#123;
+    Scanner sc = new Scanner(System.in);
+    System.out.println(&quot;用户名：&quot;);
+
+    String username = sc.nextLine();
+    System.out.println(&quot;密码：&quot;);
+
+    String password = sc.nextLine();
+    Map&lt;String, String&gt; userloginInfo = new HashMap&lt;&gt;();
+    userloginInfo.put(&quot;username&quot;, username);
+    userloginInfo.put(&quot;password&quot;, password);
+    return userloginInfo;
+&#125;
+</code></pre>
+<p>}</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/21/JDBC%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
         </p>
       
 
