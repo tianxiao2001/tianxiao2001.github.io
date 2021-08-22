@@ -15,10 +15,12 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="1.登录的实现login.jsp 12345678910111213141516171819202122232425&lt;%@ page contentType&#x3D;&quot;text&#x2F;html;charset&#x3D;UTF-8&quot; language&#x3D;&quot;java&quot; %&gt;&lt;html&gt;&lt;head&gt;    &lt;title&gt;花卉管理系统—登录&amp;">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:/Users/小田/AppData/Roaming/Typora/typora-user-images/image-20210822232643193.png">
 <meta property="article:published_time" content="2021-08-22T08:45:21.000Z">
-<meta property="article:modified_time" content="2021-08-22T09:27:16.802Z">
+<meta property="article:modified_time" content="2021-08-22T15:28:00.096Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/小田/AppData/Roaming/Typora/typora-user-images/image-20210822232643193.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -183,7 +185,14 @@
 <p>UserLoginServlet:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserLoginServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        req.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">        <span class="comment">//1.接受前台页面中的数据</span></span><br><span class="line">        String uname = req.getParameter(<span class="string">&quot;uname&quot;</span>);</span><br><span class="line">        String pwd = req.getParameter(<span class="string">&quot;pwd&quot;</span>);</span><br><span class="line">        <span class="comment">//2.数据处理-返回结果</span></span><br><span class="line">        UserMapper mapper = DBUtil.getSqlSession().getMapper(UserMapper.class);</span><br><span class="line">        User user=mapper.selectone(uname, pwd);</span><br><span class="line">        DBUtil.closeAll();</span><br><span class="line">        <span class="comment">//3.根据返回的结果做出响应</span></span><br><span class="line">        <span class="keyword">if</span>(user!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            resp.sendRedirect(req.getContextPath()+<span class="string">&quot;/main.jsp&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            req.setAttribute(<span class="string">&quot;msg&quot;</span>, <span class="string">&quot;登录失败&quot;</span>);</span><br><span class="line">            <span class="comment">//转发的/和重定向的/含义不一样，转发的/是上下文路径</span></span><br><span class="line">            req.getRequestDispatcher(<span class="string">&quot;/login.jsp&quot;</span>).forward(req, resp);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>其他代码略</p>
+<p>其他代码略，以上代码没有用MVC模式</p>
+<h4 id="MVC模式的优势："><a href="#MVC模式的优势：" class="headerlink" title="MVC模式的优势："></a>MVC模式的优势：</h4><h5 id="1：耦合性低"><a href="#1：耦合性低" class="headerlink" title="1：耦合性低"></a>1：耦合性低</h5><p>视图层和业务层分离，这样就允许更改视图层代码而不用重新编译模型和控制器代码，同样，一个应用的业务流程或者业务规则的改变只需要改动MVC的模型层即可。因为模型与控制器和视图相分离，所以很容易改变应用程序的数据层和业务规则。</p>
+<h5 id="2：重用性高"><a href="#2：重用性高" class="headerlink" title="2：重用性高"></a>2：重用性高</h5><p>MVC模式允许使用各种不同样式的视图来访问同一个服务器端的代码，因为多个视图能共享一个模型，它包括任何WEB（HTTP）浏览器或者无线浏览器（wap），比如，用户可以通过电脑也可通过手机来订购某样产品，虽然订购的方式不一样，但处理订购产品的方式是一样的。由于模型返回的数据没有进行格式化，所以同样的构件能被不同的界面使用。</p>
+<p>MVC使开发和维护用户接口的技术含量降低。</p>
+<h5 id="3：开发效率提高-人员职责明确"><a href="#3：开发效率提高-人员职责明确" class="headerlink" title="3：开发效率提高,人员职责明确"></a>3：开发效率提高,人员职责明确</h5><p>使用MVC模式使开发时间得到较大的缩减，它使程序员（Java开发人员）集中精力于业务逻辑，界面程序员（HTML和JSP开发人员）集中精力于表现形式上。</p>
+<h5 id="4：耦合度低-可维护性高"><a href="#4：耦合度低-可维护性高" class="headerlink" title="4：耦合度低,可维护性高"></a>4：耦合度低,可维护性高</h5><p>分离视图层和业务逻辑层也使得WEB应用更易于维护和修改。每层代码修改可以达到无损替换的效果</p>
+<h5 id="5：有利软件工程化管理"><a href="#5：有利软件工程化管理" class="headerlink" title="5：有利软件工程化管理"></a>5：有利软件工程化管理</h5><p>由于不同的层各司其职，每一层不同的应用具有某些相同的特征，有利于通过工程化、工具化管理程序代码。控制器也提供了一个好处，就是可以使用控制器来联接不同的模型和视图去完成用户的需求，这样控制器可以为构造应用程序提供强有力的手段。给定一些可重用的模型和视图，控制器可以根据用户的需求选择模型进行处理，然后选择视图将处理结果显示给用户。</p>
+<h4 id="MVC分层及责任划分："><a href="#MVC分层及责任划分：" class="headerlink" title="MVC分层及责任划分："></a>MVC分层及责任划分：</h4><p><img src="C:\Users\小田\AppData\Roaming\Typora\typora-user-images\image-20210822232643193.png" alt="image-20210822232643193"></p>
 
       
 
