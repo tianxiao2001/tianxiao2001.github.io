@@ -8,19 +8,19 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>案例商品管理系统笔记(JSP+Servlet+MyBatis) | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1.登录的实现login.jsp 12345678910111213141516171819202122232425&lt;%@ page contentType&#x3D;&quot;text&#x2F;html;charset&#x3D;UTF-8&quot; language&#x3D;&quot;java&quot; %&gt;&lt;html&gt;&lt;head&gt;    &lt;title&gt;花卉管理系统—登录&amp;">
+  <meta name="description" content="1.登录的实现写在前面：1.首先在WEB-INF下创建lib文件，导入mybatis包和数据库包进去，再把配置文件导入到src文件中，其中DBUtil放在Util包下。 依次创建pojo、mapper、service（一个serviceimpl接口和service）、control（就是servlet） 2.Servlet三步骤：    1.获取前台页面中的数据    2.处理数据，得到结果">
 <meta property="og:type" content="article">
 <meta property="og:title" content="案例商品管理系统笔记(JSP+Servlet+MyBatis)">
 <meta property="og:url" content="http://example.com/2021/08/22/%E6%A1%88%E4%BE%8B%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0(JSP+Servlet+MyBatis)/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="1.登录的实现login.jsp 12345678910111213141516171819202122232425&lt;%@ page contentType&#x3D;&quot;text&#x2F;html;charset&#x3D;UTF-8&quot; language&#x3D;&quot;java&quot; %&gt;&lt;html&gt;&lt;head&gt;    &lt;title&gt;花卉管理系统—登录&amp;">
+<meta property="og:description" content="1.登录的实现写在前面：1.首先在WEB-INF下创建lib文件，导入mybatis包和数据库包进去，再把配置文件导入到src文件中，其中DBUtil放在Util包下。 依次创建pojo、mapper、service（一个serviceimpl接口和service）、control（就是servlet） 2.Servlet三步骤：    1.获取前台页面中的数据    2.处理数据，得到结果">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/08/22/%E6%A1%88%E4%BE%8B%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0(JSP+Servlet+MyBatis)/Users/小田/AppData/Roaming/Typora/typora-user-images/image-20210822232643193.png">
+<meta property="og:image" content="http://example.com/2021/08/22/%E6%A1%88%E4%BE%8B%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0(JSP+Servlet+MyBatis)/Users/小田/blog/source_posts/案例商品管理系统笔记(JSP+Servlet+MyBatis)/image-20210823141823575.png">
 <meta property="article:published_time" content="2021-08-22T08:45:21.000Z">
-<meta property="article:modified_time" content="2021-08-22T15:28:00.096Z">
+<meta property="article:modified_time" content="2021-08-23T14:21:26.069Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/08/22/%E6%A1%88%E4%BE%8B%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0(JSP+Servlet+MyBatis)/Users/小田/AppData/Roaming/Typora/typora-user-images/image-20210822232643193.png">
+<meta name="twitter:image" content="http://example.com/2021/08/22/%E6%A1%88%E4%BE%8B%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0(JSP+Servlet+MyBatis)/Users/小田/blog/source_posts/案例商品管理系统笔记(JSP+Servlet+MyBatis)/image-20210823141823575.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -176,7 +176,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="1-登录的实现"><a href="#1-登录的实现" class="headerlink" title="1.登录的实现"></a>1.登录的实现</h4><p>login.jsp</p>
+        <h4 id="1-登录的实现"><a href="#1-登录的实现" class="headerlink" title="1.登录的实现"></a>1.登录的实现</h4><h5 id="写在前面："><a href="#写在前面：" class="headerlink" title="写在前面："></a>写在前面：</h5><p>1.首先在WEB-INF下创建lib文件，导入mybatis包和数据库包进去，再把配置文件导入到src文件中，其中DBUtil放在Util包下。</p>
+<p>依次创建pojo、mapper、service（一个serviceimpl接口和service）、control（就是servlet）</p>
+<p>2.Servlet三步骤：</p>
+<p>   1.获取前台页面中的数据</p>
+<p>   2.处理数据，得到结果</p>
+<p>   3.根据返回的结果给用户做出响应</p>
+<p>login.jsp</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>花卉管理系统—登录<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">base</span> <span class="attr">href</span>=<span class="string">&quot;&lt;%=request.getContextPath()+&quot;</span>/&quot;%&gt;</span>&quot;&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;UserLoginServlet&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">center</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>*****商品管理系统---登录*****<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>$&#123;requestScope.msg&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    用户名：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;uname&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    密码：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;pwd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;登录&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">center</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>UserMapper：</p>
@@ -192,7 +198,23 @@
 <h5 id="3：开发效率提高-人员职责明确"><a href="#3：开发效率提高-人员职责明确" class="headerlink" title="3：开发效率提高,人员职责明确"></a>3：开发效率提高,人员职责明确</h5><p>使用MVC模式使开发时间得到较大的缩减，它使程序员（Java开发人员）集中精力于业务逻辑，界面程序员（HTML和JSP开发人员）集中精力于表现形式上。</p>
 <h5 id="4：耦合度低-可维护性高"><a href="#4：耦合度低-可维护性高" class="headerlink" title="4：耦合度低,可维护性高"></a>4：耦合度低,可维护性高</h5><p>分离视图层和业务逻辑层也使得WEB应用更易于维护和修改。每层代码修改可以达到无损替换的效果</p>
 <h5 id="5：有利软件工程化管理"><a href="#5：有利软件工程化管理" class="headerlink" title="5：有利软件工程化管理"></a>5：有利软件工程化管理</h5><p>由于不同的层各司其职，每一层不同的应用具有某些相同的特征，有利于通过工程化、工具化管理程序代码。控制器也提供了一个好处，就是可以使用控制器来联接不同的模型和视图去完成用户的需求，这样控制器可以为构造应用程序提供强有力的手段。给定一些可重用的模型和视图，控制器可以根据用户的需求选择模型进行处理，然后选择视图将处理结果显示给用户。</p>
-<h4 id="MVC分层及责任划分："><a href="#MVC分层及责任划分：" class="headerlink" title="MVC分层及责任划分："></a>MVC分层及责任划分：</h4><p><img src="/2021/08/22/%E6%A1%88%E4%BE%8B%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0(JSP+Servlet+MyBatis)/Users\小田\AppData\Roaming\Typora\typora-user-images\image-20210822232643193.png" alt="image-20210822232643193"></p>
+<h4 id="MVC分层及责任划分："><a href="#MVC分层及责任划分：" class="headerlink" title="MVC分层及责任划分："></a>MVC分层及责任划分：</h4><p><img src="/2021/08/22/%E6%A1%88%E4%BE%8B%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0(JSP+Servlet+MyBatis)/Users\小田\blog\source_posts\案例商品管理系统笔记(JSP+Servlet+MyBatis)\image-20210823141823575.png" alt="image-20210823141823575"></p>
+<h5 id="层次之间的特点："><a href="#层次之间的特点：" class="headerlink" title="层次之间的特点："></a>层次之间的特点：</h5><p>1.下层不知道上层的存在，仅完成自身的功能，不关心结果如何使用</p>
+<p>2.每一层知道下一层的存在，而忽略其他层的存在，只关心结果的取得，不关心结果的实现过程</p>
+<h5 id="3-4JavaBean"><a href="#3-4JavaBean" class="headerlink" title="3.4JavaBean"></a>3.4JavaBean</h5><p>符合特定规范的Java类,是一种可重用的组件</p>
+<h6 id="特定规范："><a href="#特定规范：" class="headerlink" title="特定规范："></a>特定规范：</h6><p>public class,提供无参数构造方法</p>
+<p>属性private</p>
+<p>提供public的setter和getter方法</p>
+<h6 id="功能分类："><a href="#功能分类：" class="headerlink" title="功能分类："></a>功能分类：</h6><p>封装数据:数据Bean   实体类</p>
+<p>封装业务: 业务Bean service  Mapper</p>
+<h4 id="2-商品信息查询的实现"><a href="#2-商品信息查询的实现" class="headerlink" title="2.商品信息查询的实现"></a>2.商品信息查询的实现</h4><p>依次创建pojo、mapper、service（一个serviceimpl接口和service）、control（就是servlet）</p>
+<h4 id="3-商品信息添加的实现"><a href="#3-商品信息添加的实现" class="headerlink" title="3.商品信息添加的实现"></a>3.商品信息添加的实现</h4><p>遇到错误：</p>
+<p><code>Servlet.service() for servlet[com.bjsxt.servlet.ShopSaveServlet] in context with path [/mvc_war_exploded] threw exception java.lang.NullPointerException</code></p>
+<p>错误原因mapper文件中</p>
+<p><code>@Insert(&quot;insert into Shop values(default,#&#123;name&#125;,#&#123;price&#125;,#&#123;production&#125;)&quot;)</code></p>
+<p>写成了</p>
+<p><code>@select(&quot;insert into Shop values(default,#&#123;name&#125;,#&#123;price&#125;,#&#123;production&#125;)&quot;)</code></p>
+<p>很低级的错误，以后要注意</p>
 
       
 
