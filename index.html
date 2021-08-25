@@ -152,6 +152,522 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-JSTL-EL：标准标签库和表达式语言" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/25/JSTL-EL%EF%BC%9A%E6%A0%87%E5%87%86%E6%A0%87%E7%AD%BE%E5%BA%93%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AF%AD%E8%A8%80/">JSTL_EL：标准标签库和表达式语言</a>
+    </h1>
+  
+
+        
+        <a href="/2021/08/25/JSTL-EL%EF%BC%9A%E6%A0%87%E5%87%86%E6%A0%87%E7%AD%BE%E5%BA%93%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AF%AD%E8%A8%80/" class="archive-article-date">
+  	<time datetime="2021-08-25T05:28:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、-EL表达式的使用"><a href="#一、-EL表达式的使用" class="headerlink" title="一、  EL表达式的使用"></a>一、  EL表达式的使用</h2><p>EL（Expression Language） 是为了使JSP写起来更加简单。表达式语言的灵感来自于 ECMAScript 和 XPath 表达式语言，它提供了在 JSP 中简化表达式的方法，让Jsp的代码更加简化。EL 语法很简单，使用上很方便。${}是其语法的关键标志</p>
+<h3 id="1-1-EL表达式简化从域中取值"><a href="#1-1-EL表达式简化从域中取值" class="headerlink" title="1.1 EL表达式简化从域中取值"></a>1.1 EL表达式简化从域中取值</h3><p>EL表达式中定义了一些可以帮助我们快捷从域对象中取出数据的写法,基本语法为</p>
+<p>  ${域标志.数据名.属性名(可选)}  </p>
+<p><strong>四个域标志关键字分别为</strong></p>
+<p>requestScope   request域</p>
+<p>sessionScope   session域</p>
+<p>applicationScope application域</p>
+<p>pageScope    page域</p>
+<h3 id="1-2-EL获取对象属性的原理"><a href="#1-2-EL获取对象属性的原理" class="headerlink" title="1.2 EL获取对象属性的原理"></a>1.2 EL获取对象属性的原理</h3><p>底层采用了反射机制</p>
+<p>调用的是相应属性的getter方法，而不是属性</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">request.setAttribute(“stu”, stu2);$&#123;requestScope.stu.name  &#125;  <span class="comment">//获取对象</span></span><br><span class="line">Object value  =request.getAttribute(“stu”);  <span class="comment">//获取对象对应的类</span></span><br><span class="line">Class clazz =  value.getClass();  <span class="comment">//通过属性获取属性对应的操作方法</span></span><br><span class="line">Method method =  clazz.getMethod(<span class="string">&quot;get&quot;</span>+<span class="string">&quot;N&quot;</span>+<span class="string">&quot;ame&quot;</span>);</span><br><span class="line"><span class="comment">//开始执行</span></span><br><span class="line">Object returnValue =  method.invoke(value);    </span><br></pre></td></tr></table></figure>
+
+<p><strong>总结</strong><strong>:</strong></p>
+<p>EL表达式定义在JSP页面上,在转译之后的java文件中,会被转化成java代码</p>
+<p>EL表达式是一种后台技术,服务器上运行,不是在浏览器上运行,不能用于HTML页面</p>
+<p>EL表达式底层是通过反射实现的,在获取对象属性值时是通过对象的get方法实现的</p>
+<h3 id="1-3EL表达式对运算符的支持"><a href="#1-3EL表达式对运算符的支持" class="headerlink" title="1.3EL表达式对运算符的支持"></a>1.3EL表达式对运算符的支持</h3><p>在EL表达式中, 支持运算符的使用</p>
+<h5 id="算数运算符"><a href="#算数运算符" class="headerlink" title="算数运算符:"></a>算数运算符:</h5><ul>
+<li><ul>
+<li><ul>
+<li>/ % </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符:"></a>比较运算符:</h5><p>== eq equals</p>
+<p>&gt;  gt greater then</p>
+<p>&lt;  lt lower then</p>
+<p>&gt;= ge greater then or equals</p>
+<p>&lt;= le lower then or equals</p>
+<p>!=  ne not equals</p>
+<h5 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符:"></a>逻辑运算符:</h5><p>|| or   &amp;&amp; and </p>
+<h5 id="三目运算符"><a href="#三目运算符" class="headerlink" title="三目运算符:"></a>三目运算符:</h5><p>${条件 ? 表达式1 : 表达式2} </p>
+<h5 id="判空运算符"><a href="#判空运算符" class="headerlink" title="判空运算符:"></a>判空运算符:</h5><p> empty </p>
+<h2 id="二、-JSTL核心标签"><a href="#二、-JSTL核心标签" class="headerlink" title="二、  JSTL核心标签"></a>二、  JSTL核心标签</h2><h3 id="2-1认识JSTL"><a href="#2-1认识JSTL" class="headerlink" title="2.1认识JSTL"></a>2.1认识JSTL</h3><p><strong>为什么需要学习JSTL</strong></p>
+<p>通过之前的案例我们发现,就算在JSP中可以使用EL表达式取出域对象中的数据,但是仍然避免不了还是要在页面中书写一些java代码.这种嵌入JAVA代码的处理比较繁琐,容易出错,且代码不容易维护. </p>
+<p><strong>什么是JSTL</strong></p>
+<p>JSTL（Java server pages standarded tag library，即JSP标准标签库）是由<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/JCP/2679009">JCP</a>（Java community Proces）所制定的标准规范，它主要提供给Java Web开发人员一个标准通用的标签库，并由Apache的Jakarta小组来维护。</p>
+<p><strong>使用JSTL的好处:</strong></p>
+<p>开发人员可以利用JSTL和EL来开发Web程序，取代传统直接在页面上嵌入Java程序的做法，以提高程序的阅读性、维护性和方便性。在jstl中, 提供了多套标签库, 用于方便在jsp中完成或简化相关操作. </p>
+<p><strong>JSTL****标签库的组成部分</strong> </p>
+<p>\1. 核心标签库: 为日常任务提供通用支持,如显示和设置变量,重复使用一组项目,测试条件以及其他操作(如导入和重定向web页面等).<br> \2. 国际化(I18N)标签库: 支持多种语言的引用程序.<br> \3. SQL标签库: 对访问和修改数据库提供标准化支持.<br> \4. XML标签库: 对XML文件处理和操作提供支持,包括XML节点的解析,迭代,基于XML数据的条件评估以及可扩展样式语言转换(Extensible Style Language Transformations , XSLT)的执行.<br> \5. 函数标签库: 通过在EL表达式中调用函数标签库中的函数来实现特定的操作,例如: ${fn:contains(sring,substring)},其功能是判断string字符串中是否包含substring字符串.</p>
+<p><strong>2.</strong> <strong>JSTL****的使用前提</strong></p>
+<p>1需要在项目中导入jstl-1.2.jar ,jstl在后台由java代码编写, jsp页面中通过标签进行使用, 使用标签时, 会自动调用后台的java方法,</p>
+<p>2 标签和方法之间的映射关系在对应的tld文件中描述. 需要在页面中通过taglib指令引入对应的标签库, uri可以在对应的tld文件中找到 </p>
+<p>  &lt;%@  taglib uri=”标签库的定位” prefix=”前缀(简称)” %&gt;  </p>
+<p><strong>核心标签库导入的语句为</strong><strong>:</strong></p>
+<p>  &lt;%@ **taglib** **prefix**=”**c**” **uri**=”**<a target="_blank" rel="noopener" href="http://java.sun.com/jsp/jstl/core**&quot;%&gt;">http://java.sun.com/jsp/jstl/core**&quot;%&gt;</a>  </p>
+<h3 id="2-1操作域对象的标签"><a href="#2-1操作域对象的标签" class="headerlink" title="2.1操作域对象的标签:"></a>2.1操作域对象的标签:</h3><p>&lt;c:set&gt;    向域对象中放入数据  setAttribute</p>
+<p>&lt;c:out&gt;   从域对象中取出数据  getAttribute</p>
+<p>&lt;c:remove&gt; 从域对象中移除数据  removeAttribute</p>
+<h2 id="一、-JSTL格式化标签"><a href="#一、-JSTL格式化标签" class="headerlink" title="一、  JSTL格式化标签"></a>一、  JSTL格式化标签</h2><h3 id="3-1-格式化标签库"><a href="#3-1-格式化标签库" class="headerlink" title="3.1 格式化标签库"></a>3.1 格式化标签库</h3><p>格式化标签库,也叫作fmt标签,是JTSL中的第二大组成部分,主要解决数据显示格式问题,让JSP页面的数据格式更加规范</p>
+<p><strong>格式化标签库导入的语句为:</strong></p>
+<p>  &lt;%@ **taglib** **prefix**=”**fmt**” **uri**=”**<a target="_blank" rel="noopener" href="http://java.sun.com/jsp/jstl/fmt**&quot;%&gt;">http://java.sun.com/jsp/jstl/fmt**&quot;%&gt;</a>  </p>
+<p>fmt标签有如下属性： </p>
+<table>
+<thead>
+<tr>
+<th><strong>属性</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>是否必要</strong></th>
+<th><strong>默认值</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>value</td>
+<td>要显示的数字</td>
+<td>是</td>
+<td>无</td>
+</tr>
+<tr>
+<td>type</td>
+<td>NUMBER，CURRENCY，或 PERCENT类型</td>
+<td>否</td>
+<td>Number</td>
+</tr>
+<tr>
+<td>pattern</td>
+<td>指定一个自定义的格式化模式用与输出</td>
+<td>否</td>
+<td>无</td>
+</tr>
+<tr>
+<td>currencyCode</td>
+<td>货币码（当type=”currency”时）</td>
+<td>否</td>
+<td>取决于默认区域</td>
+</tr>
+<tr>
+<td>currencySymbol</td>
+<td>货币符号 (当 type=”currency”时)</td>
+<td>否</td>
+<td>取决于默认区域</td>
+</tr>
+<tr>
+<td>groupingUsed</td>
+<td>是否对数字分组 (TRUE 或 FALSE)</td>
+<td>否</td>
+<td>true</td>
+</tr>
+<tr>
+<td>maxIntegerDigits</td>
+<td>整型数最大的位数</td>
+<td>否</td>
+<td>无</td>
+</tr>
+<tr>
+<td>minIntegerDigits</td>
+<td>整型数最小的位数</td>
+<td>否</td>
+<td>无</td>
+</tr>
+<tr>
+<td>maxFractionDigits</td>
+<td>小数点后最大的位数</td>
+<td>否</td>
+<td>无</td>
+</tr>
+<tr>
+<td>minFractionDigits</td>
+<td>小数点后最小的位数</td>
+<td>否</td>
+<td>无</td>
+</tr>
+<tr>
+<td>var</td>
+<td>存储格式化数字的变量</td>
+<td>否</td>
+<td>Print to page</td>
+</tr>
+<tr>
+<td>scope</td>
+<td>var属性的作用域</td>
+<td>否</td>
+<td>page</td>
+</tr>
+</tbody></table>
+<p>如果type属性为percent或number，那么您就可以使用其它几个格式化数字属性。maxIntegerDigits属性和minIntegerDigits属性允许您指定整数的长度。若实际数字超过了maxIntegerDigits所指定的最大值，则数字将会被截断。 </p>
+<p>有一些属性允许您指定小数点后的位数。minFractionalDigits属性和maxFractionalDigits属性允许您指定小数点后的位数。若实际的数字超出了所指定的范围，则这个数字会被截断。</p>
+<p>数字分组可以用来在每三个数字中插入一个逗号。groupingIsUsed属性用来指定是否使用数字分组。当与minIntegerDigits属性一同使用时，就必须要很小心地来获取预期的结果了。</p>
+<p>您或许会使用pattern属性。这个属性可以让您在对数字编码时包含指定的字符。接下来的表格中列出了这些字符。 </p>
+<table>
+<thead>
+<tr>
+<th><strong>符号</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>代表一位数字</td>
+</tr>
+<tr>
+<td>E</td>
+<td>使用指数格式</td>
+</tr>
+<tr>
+<td>#</td>
+<td>代表一位数字，若没有则显示 0，前导 0 和追尾 0 不显示。</td>
+</tr>
+<tr>
+<td>.</td>
+<td>小数点</td>
+</tr>
+<tr>
+<td>,</td>
+<td>数字分组分隔符</td>
+</tr>
+<tr>
+<td>;</td>
+<td>分隔格式</td>
+</tr>
+<tr>
+<td>-</td>
+<td>使用默认负数前缀</td>
+</tr>
+<tr>
+<td>%</td>
+<td>百分数</td>
+</tr>
+<tr>
+<td>?</td>
+<td>千分数</td>
+</tr>
+<tr>
+<td>¤</td>
+<td>货币符号，使用实际的货币符号代替</td>
+</tr>
+<tr>
+<td>X</td>
+<td>指定可以作为前缀或后缀的字符</td>
+</tr>
+<tr>
+<td>&apos;</td>
+<td>在前缀或后缀中引用特殊字符</td>
+</tr>
+</tbody></table>
+<h3 id="3-2-日期格式化"><a href="#3-2-日期格式化" class="headerlink" title="3.2 日期格式化"></a>3.2 日期格式化</h3><p>日期格式化标签是fmt标签中专门用于处理日期格式的标签</p>
+<p><a href="fmt:formatDate">fmt:formatDate</a>标签有如下属性： </p>
+<table>
+<thead>
+<tr>
+<th><strong>属性</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>是否必要</strong></th>
+<th><strong>默认值</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>value</td>
+<td>要显示的日期</td>
+<td>是</td>
+<td>无</td>
+</tr>
+<tr>
+<td>type</td>
+<td>DATE, TIME, 或 BOTH</td>
+<td>否</td>
+<td>date</td>
+</tr>
+<tr>
+<td>dateStyle</td>
+<td>FULL, LONG, MEDIUM, SHORT, 或 DEFAULT</td>
+<td>否</td>
+<td>default</td>
+</tr>
+<tr>
+<td>timeStyle</td>
+<td>FULL, LONG, MEDIUM, SHORT, 或 DEFAULT</td>
+<td>否</td>
+<td>default</td>
+</tr>
+<tr>
+<td>pattern</td>
+<td>自定义格式模式</td>
+<td>否</td>
+<td>无</td>
+</tr>
+<tr>
+<td>timeZone</td>
+<td>显示日期的时区</td>
+<td>否</td>
+<td>默认时区</td>
+</tr>
+<tr>
+<td>var</td>
+<td>存储格式化日期的变量名</td>
+<td>否</td>
+<td>显示在页面</td>
+</tr>
+<tr>
+<td>scope</td>
+<td>存储格式化日志变量的范围</td>
+<td>否</td>
+<td>页面</td>
+</tr>
+</tbody></table>
+<p><a href="fmt:formatDate">fmt:formatDate</a> 标签格式模式 </p>
+<table>
+<thead>
+<tr>
+<th><strong>代码</strong></th>
+<th><strong>描述</strong></th>
+<th><strong>实例</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>G</td>
+<td>时代标志</td>
+<td>AD</td>
+</tr>
+<tr>
+<td>y</td>
+<td>不包含纪元的年份。如果不包含纪元的年份小于 10，则显示不具有前导零的年份。</td>
+<td>2002</td>
+</tr>
+<tr>
+<td>M</td>
+<td>月份数字。一位数的月份没有前导零。</td>
+<td>April &amp; 04</td>
+</tr>
+<tr>
+<td>d</td>
+<td>月中的某一天。一位数的日期没有前导零。</td>
+<td>20</td>
+</tr>
+<tr>
+<td>h</td>
+<td>12 小时制的小时。一位数的小时数没有前导零。</td>
+<td>12</td>
+</tr>
+<tr>
+<td>H</td>
+<td>24 小时制的小时。一位数的小时数没有前导零。</td>
+<td>0</td>
+</tr>
+<tr>
+<td>m</td>
+<td>分钟。一位数的分钟数没有前导零。</td>
+<td>45</td>
+</tr>
+<tr>
+<td>s</td>
+<td>秒。一位数的秒数没有前导零。</td>
+<td>52</td>
+</tr>
+<tr>
+<td>S</td>
+<td>毫秒</td>
+<td>970</td>
+</tr>
+<tr>
+<td>E</td>
+<td>周几</td>
+<td>Tuesday</td>
+</tr>
+<tr>
+<td>D</td>
+<td>一年中的第几天</td>
+<td>180</td>
+</tr>
+<tr>
+<td>F</td>
+<td>一个月中的第几个周几</td>
+<td>2 (一个月中的第二个星期三)</td>
+</tr>
+<tr>
+<td>w</td>
+<td>一年中的第几周r</td>
+<td>27</td>
+</tr>
+<tr>
+<td>W</td>
+<td>一个月中的第几周</td>
+<td>2</td>
+</tr>
+<tr>
+<td>a</td>
+<td>a.m./p.m. 指示符</td>
+<td>PM</td>
+</tr>
+<tr>
+<td>k</td>
+<td>小时(12 小时制的小时)</td>
+<td>24</td>
+</tr>
+<tr>
+<td>K</td>
+<td>小时(24 小时制的小时)</td>
+<td>0</td>
+</tr>
+<tr>
+<td>z</td>
+<td>时区</td>
+<td>中部标准时间</td>
+</tr>
+<tr>
+<td>&apos;</td>
+<td></td>
+<td>转义文本</td>
+</tr>
+<tr>
+<td>&apos;&apos;</td>
+<td></td>
+<td>单引号</td>
+</tr>
+</tbody></table>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/25/JSTL-EL%EF%BC%9A%E6%A0%87%E5%87%86%E6%A0%87%E7%AD%BE%E5%BA%93%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AF%AD%E8%A8%80/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-JSP-Java服务端页面技术" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/25/JSP-Java%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%A1%B5%E9%9D%A2%E6%8A%80%E6%9C%AF/">JSP:Java服务端页面技术</a>
+    </h1>
+  
+
+        
+        <a href="/2021/08/25/JSP-Java%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%A1%B5%E9%9D%A2%E6%8A%80%E6%9C%AF/" class="archive-article-date">
+  	<time datetime="2021-08-25T05:08:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-JSP执行过程"><a href="#1-JSP执行过程" class="headerlink" title="1.JSP执行过程"></a>1.JSP执行过程</h3><p>JSP的执行过程大致可以分为两个时期：转译时期和请求时期</p>
+<h5 id="转译时期"><a href="#转译时期" class="headerlink" title="转译时期"></a>转译时期</h5><p>​    JSP网页转译成Servlet，生成.java文件，然后再编译生成.class字节转码文件</p>
+<h5 id="请求时期"><a href="#请求时期" class="headerlink" title="请求时期"></a>请求时期</h5><p>   运行.class字节码文件，处理请求</p>
+<h4 id="JSP的性能问题"><a href="#JSP的性能问题" class="headerlink" title="JSP的性能问题"></a>JSP的性能问题</h4><p>有人都会认为JSP的执行性能会和Servlet相差很多，其实执行性能上的差别只在第一次的执行。因为JSP在执行第一次后，会被编译成Servlet的类文件，即.class，当再重复调用执行时，就直接执行第一次所产生的Servlet,而不再重新把JSP编译成Servelt。除了第一次的编译会花较久的时间之外，之后JSP和同等功能的Servlet的执行速度就几乎相同了。</p>
+<p>JSP慢的原因不仅仅是第一次请求需要进行转译和编译,而是因为JSP作为一种动态资源,本质上就是Servlet,它是需要运行代码才会生成资源,和HTML本身资源已经存在,直接返回,着本质上的差异,另外,JSP转译之后,内部通过大量IO流形式发送页面内容,IO流本身是一种重量级操作,是比较消耗资源的</p>
+<h4 id="JSP的继承结构"><a href="#JSP的继承结构" class="headerlink" title="JSP的继承结构"></a>JSP的继承结构</h4><p>​    JSP文件转换成JAVA代码之后,它默认继承了HttpJSPBase,实现了JSPSourceDependent,和JSPSourceImports两个接口,其中HttpJSPBase又继承了HttpServlet ,也就是说,JSP本质上就是一个Servlet</p>
+<h4 id="JSP的使用建议"><a href="#JSP的使用建议" class="headerlink" title="JSP的使用建议"></a>JSP的使用建议</h4><p>   JSP和Servlet本质上是相同的,JSP页面功能和Servlet后台功能是完全能够互换的,但是JSP的编码风格是在HTML中嵌入少量JAVA代码,它用于显示数据比较方便,如果Servlet上嵌入HTML字符串处理就比较麻烦</p>
+<p>Servlet更适合专门编写JAVA代码,JSP更擅长展示数据,Servlet更适合做后台程序,所以在分层上,我们往往将Servlet作为控制层Controller使用,JSP作为视图层view使用,可以让Servlet将数据发送给JSP,然后在JSP上展示数据</p>
+<p><img src="/2021/08/25/JSP-Java%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%A1%B5%E9%9D%A2%E6%8A%80%E6%9C%AF/clip_image002.jpg" alt="img"></p>
+<h3 id="2-JSP内置对象"><a href="#2-JSP内置对象" class="headerlink" title="2.JSP内置对象"></a>2.JSP内置对象</h3><h5 id="2-1-什么是内置对象"><a href="#2-1-什么是内置对象" class="headerlink" title="2.1 什么是内置对象"></a>2.1 什么是内置对象</h5><p>  因为JSP的本质是Servlet,在JSP文件经过转译之后,生成JAVA代码,在运行时,JSP给我们准备好了九个可以直接使用而不用我们自己去new的对象,这九个对象我们称之为内置对象.内置对象完全有JSP自行去维护,我们直接使用即可</p>
+<h5 id="2-2-九大内置对象"><a href="#2-2-九大内置对象" class="headerlink" title="2.2 九大内置对象"></a>2.2 九大内置对象</h5><p><img src="/2021/08/25/JSP-Java%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%A1%B5%E9%9D%A2%E6%8A%80%E6%9C%AF/clip_image002-16298688701501.jpg" alt="img"></p>
+<p><strong>四个域对象</strong> </p>
+<p>pageContext page域   当前页面内可用</p>
+<p>request    reqeust域  单次请求</p>
+<p>session    session域  单次会话</p>
+<p>application  application 域项目运行</p>
+<p><strong>响应对象</strong></p>
+<p>response  响应对象</p>
+<p><strong>输出流对象</strong></p>
+<p>out    打印流对象 </p>
+<p><strong>其他三个对象</strong></p>
+<p>servletConfig: 由于JSP本身也是一个Servlet,所以容器也会给我们准备一个ServletConfig</p>
+<p>page    就是他this对象 当前JSP对象本身  </p>
+<p>exception  异常对象,在错误提示页上使用,当isErrorpage=true 才具有该对象</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/25/JSP-Java%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%A1%B5%E9%9D%A2%E6%8A%80%E6%9C%AF/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-商品管理系统代码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -405,74 +921,6 @@
 
 
   
-    <article id="post-常用代码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/22/%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81/">常用代码</a>
-    </h1>
-  
-
-        
-        <a href="/2021/08/22/%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81/" class="archive-article-date">
-  	<time datetime="2021-08-22T08:45:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="connector包："><a href="#connector包：" class="headerlink" title="connector包："></a><strong>connector包：</strong></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">     &lt;groupId&gt;mysql&lt;/groupId&gt;</span><br><span class="line">     &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</span><br><span class="line">     &lt;version&gt;8.0.24&lt;/version&gt;</span><br><span class="line">  &lt;/dependency&gt;	</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="数据库："><a href="#数据库：" class="headerlink" title="数据库："></a><strong>数据库：</strong></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">com.mysql.cj.jdbc.Driver</span><br><span class="line">&quot;jdbc:mysql://localhost:3306/qfdb?serverTimezone=UTC&amp;characterEncoding=utf8&amp;useUnicode=true&amp;useSSL=false&quot;</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/22/%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-案例商品管理系统笔记(JSP+Servlet+MyBatis)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -549,6 +997,74 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/08/22/%E6%A1%88%E4%BE%8B%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0(JSP+Servlet+MyBatis)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-常用代码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/22/%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81/">常用代码</a>
+    </h1>
+  
+
+        
+        <a href="/2021/08/22/%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81/" class="archive-article-date">
+  	<time datetime="2021-08-22T08:45:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="connector包："><a href="#connector包：" class="headerlink" title="connector包："></a><strong>connector包：</strong></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">     &lt;groupId&gt;mysql&lt;/groupId&gt;</span><br><span class="line">     &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</span><br><span class="line">     &lt;version&gt;8.0.24&lt;/version&gt;</span><br><span class="line">  &lt;/dependency&gt;	</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="数据库："><a href="#数据库：" class="headerlink" title="数据库："></a><strong>数据库：</strong></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">com.mysql.cj.jdbc.Driver</span><br><span class="line">&quot;jdbc:mysql://localhost:3306/qfdb?serverTimezone=UTC&amp;characterEncoding=utf8&amp;useUnicode=true&amp;useSSL=false&quot;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/22/%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81/">展开全文 >></a>
         </p>
       
 
