@@ -256,10 +256,113 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <meta name="referrer" content="no-referrer">
+        <p><strong>1.</strong>  <strong>xml****配置</strong></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image002.jpg" alt="img"></p>
+<p>**2.**<strong>解决中文乱码</strong></p>
+<p>*<strong>1.*</strong></p>
+<p>*//<strong>解决post提交方式中文乱码<br>* request.setCharacterEncoding(</strong>“utf-8”**);</p>
+<p>2.</p>
+<p>*//<strong>解决get提交方式中文乱码<br> //把乱码的字符串转成原始字节数组<br>* <strong>byte</strong>[] bytes=a.getBytes(</strong>“ISO-8859-1”**);<br> *//**把原始字节数组转成utf-8格式字符串<br>* String s = <strong>new</strong> String(bytes, <strong>“utf-8”</strong>);</p>
+<p>**3.**<strong>欢迎界面、错误页面设置</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;welcome-file-list&gt;</span><br><span class="line">  &lt;welcome-file&gt;login.jsp&lt;/welcome-file&gt;</span><br><span class="line">&lt;/welcome-file-list&gt;</span><br><span class="line"> </span><br><span class="line">&lt;error-page&gt;</span><br><span class="line">  &lt;error-code&gt;404&lt;/error-code&gt;</span><br><span class="line">  &lt;location&gt;/login&lt;/location&gt;</span><br><span class="line">&lt;/error-page&gt;</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
 
-<p><strong>1.</strong>  <strong>xml配置</strong></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/servclet01.png" alt="xml配置"></p>
+<p><strong>4.Servlet****的生命周期</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">  1.Servlet是一个单实例、多线程的应用</span><br><span class="line">  2.Servlet是服务器创建的对象，并不是服务器创建的</span><br><span class="line">  3.Servlet的生命周期</span><br><span class="line">      1.类加载   Class class=Class.forName(&quot;全路径&quot;)；</span><br><span class="line">      2.实例化   Object obj=class.newInstance();</span><br><span class="line">      3.初始化   Method m1=class.getMethod(&quot;init&quot;,ServletConfig.class);</span><br><span class="line">                 m1.invole(pbj,conf);</span><br><span class="line">      4.服务请求  离不开反射</span><br><span class="line">      5.销毁      离不开反射</span><br><span class="line"> 4.类加载的时机</span><br><span class="line">      1.首次访问的时候（默认）</span><br><span class="line">      2.启动服务器创建当前servlet</span><br><span class="line">        &lt;load-on-startup&gt;0&lt;/load-on-startup&gt; 数字越小，加载顺序越往前</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> */</span><br></pre></td></tr></table></figure>
+
+<p><strong>Servlet****的继承结构</strong></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image004.jpg" alt="img"></p>
+<p>**5.**<strong>参数读取ServletContext和ServletConfig</strong></p>
+<p><strong>5.1ServletContext</strong></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image006.jpg" alt="img"></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image008.jpg" alt="img"></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image010.jpg" alt="img"></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image011.png" alt="img"></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image012.png" alt="img"></p>
+<p>**6.**<strong>基于注解式开发Servlet</strong></p>
+<p>省得在总是在web.ml写</p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image014.jpg" alt="img"></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image015.png" alt="img"></p>
+<p><strong>课后题目：</strong></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image017.jpg" alt="img"></p>
+<p><strong>连接数据库的登录：(servlet+jsp+mysql)</strong></p>
+<p><strong>关键点：连接数据库，将输入的数据和数据库中的数据比对</strong></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image019.jpg" alt="img"></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image021.jpg" alt="img"></p>
+<p><strong>7.HttpServletRequest****常用方法</strong></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image023.jpg" alt="img"></p>
+<p>要记住URI URL 和getQueryString</p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image025.jpg" alt="img"></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image027.jpg" alt="img"></p>
+<p><strong>8.HttpServletResponse****常用方法</strong></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image029.jpg" alt="img"></p>
+<p>**9.**<strong>路径</strong></p>
+<p>**1.**<strong>绝对路径</strong></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image031.jpg" alt="img"></p>
+<p><strong>2.</strong>   <strong>根路径</strong></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image033.jpg" alt="img"></p>
+<p><strong>3.</strong>   <strong>相对路径</strong></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image035.jpg" alt="img"></p>
+<p><strong>4.</strong>   <strong>路径的使用情况</strong></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image037.jpg" alt="img">**10.**<strong>请求转发和相应重定向</strong></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image038.png" alt="img"></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image040.jpg" alt="img"></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image041.png" alt="img"></p>
+<p><strong>转发：</strong></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image043.jpg" alt="img"></p>
+<p><strong>重定向：</strong></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image045.jpg" alt="img"></p>
+<p><em>请求转发和重定向的共同点：<br>   都可以实现服务器页面的跳转<br> 请求转发和重定向的不同点：<br>  1.语句不同<br>   转发：request.getRequestDispatcher(“main.jsp”).forward(request, response);<br>   重定向：response.sendRedirect(“main.jsp “);<br> 2.URL显示不同<br>   转发：显示的是跳转之前的地址<br>   重定向：显示的是跳转之后的地址<br> 3.跳转前后i是否可以共享数据<br>   转发：跳转之后可以<br>   重定向：不可以<br> 4.原理不同<br>   转发：转发的整个过程中，没有产生新的请求，只是把之前的请求进行了传递，转发的过程只是进行了请求转递，所以跳转前后可以进行数据传递<br>      由于转发的整个过程是服务器内部的跳转，服务器根本不知道，所以URL地址不会改变<br>   重定向：重定向的整个过程中产生了新的请求，所以跳转前后没有办法实现数据共享，重定向的整个过程浏览器是知道的，所以URL地址会改变<br> 5.效率不同<br>   转发：效率较高<br>   重定向：效率较低<br> 6.跳转范围不同：<br>   转发：只能在当前项目中跳转<br>   重定向：可以在任何服务器跳转<br> 7.路径不同：<br>  绝对路径：<br>   转发：不支持<br>   重定向：支持<br>  相对路径（相对于URL地址）：<br>   都支持<br>  根路径：<br>   转发：  / 代表的是当前项目<br>   重定向： / 代表的是当前服务器<br> 8.表单重复提交<br>   转发：会<br>   重定向： 不会</em></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image046.png" alt="img"></p>
+<p><strong>11.Cookie****对象和HttpSession对象</strong></p>
+<p><strong>原理：</strong></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image048.jpg" alt="img"></p>
+<p><strong>Cookie****对象的特点：</strong></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image050.jpg" alt="img"></p>
+<p><strong>Cookie****记住自我的实现：</strong></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image052.jpg" alt="img"></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image053.png" alt="img"> </p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image054.png" alt="img"></p>
+<p><strong>Cookie****跨域问题：</strong></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image056.jpg" alt="img"></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image058.jpg" alt="img"></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image060.jpg" alt="img"></p>
+<p><strong>Cookie****对象总结：</strong></p>
+<p>Cookie对于存储内容是基于明文的方式存储的，所以安全性很低。不要在Cookie中存放安全敏感数据。在数据存储时，虽然在Servlet4.0中Cookie支持中文，但是建议对Cookie中存放的内容做编码处理，也可提高安全性。</p>
+<p><strong>Session:</strong></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image062.jpg" alt="img"></p>
+<p>Session对象只可以创建一次，第二次创建不是创建，而是获取第一次的session。因为jsp里有和Servlet交互的产物内置对象，所以如果首页是jsp,即便没有HttpServletRequestSession(true),Session也会创建</p>
+<p><strong>Session****实现的原理：</strong></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image064.jpg" alt="img"></p>
+<p><strong>Session****失效的时机：</strong></p>
+<p>** 1.*<em>手动注销Session invalidate();<br> * 2.设置Session的超时时间1<br> *  (1).xml中设置整个项目<br> * <session-config><br>  <session-timeout>60</session-timeout><br>  </session-config><br>   (2)jsp文件中设置某个页面<br>   &lt;%session.setMaxInactiveInterval(10);%&gt;<br>  3.关闭浏览器</em></p>
+<p><em>HttpSession**对象的特点</em></p>
+<p><em>1.</em>   <em>HttpSession**保存在服务器</em></p>
+<p>\2.   HttpSession可以存储任何类型的数据</p>
+<p>\3.   HttpSession使用Key和Value结构存储</p>
+<p>\4.   HttpSession存储数据大小无限制</p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image066.jpg" alt="img"></p>
+<p><strong>作业：</strong></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image068.jpg" alt="img"></p>
+<p>**12.**<strong>关于域对象的使用</strong></p>
+<p><strong>域对象：</strong>对象作为存储数据的区域</p>
+<p>JAVA中的域对象就是在一定的范围内，可以实现数据的存储和读取的一些对象，在某些特定的范围内能够实现数据共享的对象</p>
+<p>四大域对象：</p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image070.jpg" alt="img"></p>
+<p><strong>Page****域</strong></p>
+<p>&lt;%</p>
+<p>  //只能在当前页面设置，当前页面获得</p>
+<p>  pageContext.setAttribute(“msg”, “tianxiao”);</p>
+<p>%&gt;</p>
+<p><strong>Request****域：</strong></p>
+<p>*&lt;%–<br>  request**作用域对象是当前请求中都是有效的<br>  动态包含+静态包含+转发<br> –%&gt;<br>* &lt;%<br> request.setAttribute(“msg”, “tianxiao”);<br> request.getRequestDispatcher(“/scope/request2.jsp”).forward(request, response);<br> %&gt;</p>
+<p><strong>Session****域：</strong></p>
+<p>*&lt;%–<br> session**范围：当前会话<br> request+重定向<br> –%&gt;<br>* <strong>&lt;%<br>** session.setAttribute(**”msg”**, **”tianxiao”**);<br> **%&gt;</strong></p>
+<p><strong>Application****域：</strong></p>
+<p>*&lt;%–<br> application**范围：整个应用中都可以实现数据的共享<br>         多个用户多个请求实现数据的共享</p>
+<p> –%&gt;<br>* <strong>&lt;%<br>** application.setAttribute(**”msg”**, **”tianxiao”**);<br> **%&gt;</strong></p>
+<p><strong>ServletContext****实现网站访问人数统计：</strong></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image071.png" alt="img"></p>
+<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image072.png" alt="img"></p>
 
       
 
@@ -475,75 +578,6 @@
 
 
   
-    <article id="post-mysql练习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/21/mysql%E7%BB%83%E4%B9%A0/">mysql练习</a>
-    </h1>
-  
-
-        
-        <a href="/2021/08/21/mysql%E7%BB%83%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2021-08-21T08:45:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>数据库中常使用的操作<br>SELECT NAME,age FROM student; – 查询姓名和年龄</p>
-<p>SELECT address FROM student; – 查询地址</p>
-<p>SELECT DISTINCT address FROM student; – 去除以上结果集的重复内容</p>
-<p>SELECT NAME,math,english,math+english FROM student;– 计算math和english分数之和</p>
-<p>– 以上结果集中柳青的和为null,因为如果有null参与运算，计算的结果都是null，使用以下操作：<br>SELECT NAME,math,english,math+IFNULL(english,0)FROM student;– 如果出现null用0代替</p>
-<p>– 起别名，使用AS ,如下(当然as可以省略):<br>SELECT NAME,math 数学,english 英语,math + IFNULL(english,0) 总分 FROM student;</p>
-<p>– 条件查询<br>SELECT * FROM student WHERE age&gt;20 &amp;&amp; age&lt;30;– 查询年龄大于20小于30的人<br>SELECT * FROM student WHERE NAME LIKE ‘马%’;– 查询名字第一个是马的人<br>SELECT * FROM student WHERE NAME LIKE ‘_化%’– 查询名字第二个是化的人<br>– 排序查询<br>SELECT * FROM student ORDER BY math ASC;– 按照数学成绩升序进行排序，ASC可以不写，默认升序<br>SELECT * FROM student ORDER BY math ASC,english ASC;– 按照数学成绩升序进行排序,数学成绩一样就按英语成绩升序排序<br>– 聚合函数查询<br>SELECT COUNT(NAME) FROM student;– 统计有多少学生<br>SELECT COUNT(IFNULL(english,0)) AS 英语 FROM student;– 根据英语成绩统计学生人数<br>– 求出math的最大，最小，总分和平均值<br>SELECT MAX(math) FROM student;<br>SELECT MIN(math) FROM student;<br>SELECT SUM(math) FROM student;<br>SELECT AVG(math) FROM student;<br>– 分组查询<br>SELECT sex,AVG(math),COUNT(id) FROM student GROUP BY sex;– 按照性别进行分组，分别查询男女同学的数学平均分和人数(如果分组之后查询的字段不是分组字段没有任何意义(sex,sex)。)<br>– 按照性别进行分组，分别查询男，女同学的数学平均分和人数,要求分数低于70分的不参与分组,且分组之后只显示人数大于2个人的<br>SELECT sex,AVG(math),COUNT(id) FROM student WHERE math&gt;=70 GROUP BY sex;<br>– 分页查询<br>– 每页显示三条数据<br>SELECT * FROM student LIMIT 0,3; – 第一页 0为开始的下标，3为显示的条数<br>SELECT * FROM student LIMIT 3,3; – 第二页</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/21/mysql%E7%BB%83%E4%B9%A0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-hexo+githun创建blog" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -595,6 +629,75 @@ deploy:
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/08/21/hexo+githun%E5%88%9B%E5%BB%BAblog/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-mysql练习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/21/mysql%E7%BB%83%E4%B9%A0/">mysql练习</a>
+    </h1>
+  
+
+        
+        <a href="/2021/08/21/mysql%E7%BB%83%E4%B9%A0/" class="archive-article-date">
+  	<time datetime="2021-08-21T08:45:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>数据库中常使用的操作<br>SELECT NAME,age FROM student; – 查询姓名和年龄</p>
+<p>SELECT address FROM student; – 查询地址</p>
+<p>SELECT DISTINCT address FROM student; – 去除以上结果集的重复内容</p>
+<p>SELECT NAME,math,english,math+english FROM student;– 计算math和english分数之和</p>
+<p>– 以上结果集中柳青的和为null,因为如果有null参与运算，计算的结果都是null，使用以下操作：<br>SELECT NAME,math,english,math+IFNULL(english,0)FROM student;– 如果出现null用0代替</p>
+<p>– 起别名，使用AS ,如下(当然as可以省略):<br>SELECT NAME,math 数学,english 英语,math + IFNULL(english,0) 总分 FROM student;</p>
+<p>– 条件查询<br>SELECT * FROM student WHERE age&gt;20 &amp;&amp; age&lt;30;– 查询年龄大于20小于30的人<br>SELECT * FROM student WHERE NAME LIKE ‘马%’;– 查询名字第一个是马的人<br>SELECT * FROM student WHERE NAME LIKE ‘_化%’– 查询名字第二个是化的人<br>– 排序查询<br>SELECT * FROM student ORDER BY math ASC;– 按照数学成绩升序进行排序，ASC可以不写，默认升序<br>SELECT * FROM student ORDER BY math ASC,english ASC;– 按照数学成绩升序进行排序,数学成绩一样就按英语成绩升序排序<br>– 聚合函数查询<br>SELECT COUNT(NAME) FROM student;– 统计有多少学生<br>SELECT COUNT(IFNULL(english,0)) AS 英语 FROM student;– 根据英语成绩统计学生人数<br>– 求出math的最大，最小，总分和平均值<br>SELECT MAX(math) FROM student;<br>SELECT MIN(math) FROM student;<br>SELECT SUM(math) FROM student;<br>SELECT AVG(math) FROM student;<br>– 分组查询<br>SELECT sex,AVG(math),COUNT(id) FROM student GROUP BY sex;– 按照性别进行分组，分别查询男女同学的数学平均分和人数(如果分组之后查询的字段不是分组字段没有任何意义(sex,sex)。)<br>– 按照性别进行分组，分别查询男，女同学的数学平均分和人数,要求分数低于70分的不参与分组,且分组之后只显示人数大于2个人的<br>SELECT sex,AVG(math),COUNT(id) FROM student WHERE math&gt;=70 GROUP BY sex;<br>– 分页查询<br>– 每页显示三条数据<br>SELECT * FROM student LIMIT 0,3; – 第一页 0为开始的下标，3为显示的条数<br>SELECT * FROM student LIMIT 3,3; – 第二页</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/21/mysql%E7%BB%83%E4%B9%A0/">展开全文 >></a>
         </p>
       
 
