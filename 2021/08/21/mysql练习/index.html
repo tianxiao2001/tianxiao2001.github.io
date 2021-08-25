@@ -16,7 +16,7 @@
 <meta property="og:description" content="数据库中常使用的操作SELECT NAME,age FROM student; – 查询姓名和年龄 SELECT address FROM student; – 查询地址 SELECT DISTINCT address FROM student; – 去除以上结果集的重复内容 SELECT NAME,math,english,math+english FROM student;– 计算math和e">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-08-21T08:45:21.000Z">
-<meta property="article:modified_time" content="2021-08-21T08:46:20.409Z">
+<meta property="article:modified_time" content="2021-08-25T06:37:23.836Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -47,7 +47,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="" class="js-avatar">
+			<img src="/img/touxiang.jpg" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/"></a></h1>
@@ -83,11 +83,11 @@
 				
 					<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+					<a class="weibo" target="_blank" href="/www.sina.com" title="weibo"><i class="icon-weibo"></i></a>
 		        
 					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
 		        
-					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+					<a class="zhihu" target="_blank" href="/www.zhihu.com" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
 			</div>
 		</nav>
@@ -105,7 +105,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="" class="js-avatar">
+				<img src="/img/touxiang.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author"></h1>
@@ -124,11 +124,11 @@
 					
 						<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+						<a class="weibo" target="_blank" href="/www.sina.com" title="weibo"><i class="icon-weibo"></i></a>
 			        
 						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
 			        
-						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+						<a class="zhihu" target="_blank" href="/www.zhihu.com" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
 				</div>
 			</nav>
@@ -178,6 +178,8 @@
 <p>SELECT address FROM student; – 查询地址</p>
 <p>SELECT DISTINCT address FROM student; – 去除以上结果集的重复内容</p>
 <p>SELECT NAME,math,english,math+english FROM student;– 计算math和english分数之和</p>
+<span id="more"></span>
+
 <p>– 以上结果集中柳青的和为null,因为如果有null参与运算，计算的结果都是null，使用以下操作：<br>SELECT NAME,math,english,math+IFNULL(english,0)FROM student;– 如果出现null用0代替</p>
 <p>– 起别名，使用AS ,如下(当然as可以省略):<br>SELECT NAME,math 数学,english 英语,math + IFNULL(english,0) 总分 FROM student;</p>
 <p>– 条件查询<br>SELECT * FROM student WHERE age&gt;20 &amp;&amp; age&lt;30;– 查询年龄大于20小于30的人<br>SELECT * FROM student WHERE NAME LIKE ‘马%’;– 查询名字第一个是马的人<br>SELECT * FROM student WHERE NAME LIKE ‘_化%’– 查询名字第二个是化的人<br>– 排序查询<br>SELECT * FROM student ORDER BY math ASC;– 按照数学成绩升序进行排序，ASC可以不写，默认升序<br>SELECT * FROM student ORDER BY math ASC,english ASC;– 按照数学成绩升序进行排序,数学成绩一样就按英语成绩升序排序<br>– 聚合函数查询<br>SELECT COUNT(NAME) FROM student;– 统计有多少学生<br>SELECT COUNT(IFNULL(english,0)) AS 英语 FROM student;– 根据英语成绩统计学生人数<br>– 求出math的最大，最小，总分和平均值<br>SELECT MAX(math) FROM student;<br>SELECT MIN(math) FROM student;<br>SELECT SUM(math) FROM student;<br>SELECT AVG(math) FROM student;<br>– 分组查询<br>SELECT sex,AVG(math),COUNT(id) FROM student GROUP BY sex;– 按照性别进行分组，分别查询男女同学的数学平均分和人数(如果分组之后查询的字段不是分组字段没有任何意义(sex,sex)。)<br>– 按照性别进行分组，分别查询男，女同学的数学平均分和人数,要求分数低于70分的不参与分组,且分组之后只显示人数大于2个人的<br>SELECT sex,AVG(math),COUNT(id) FROM student WHERE math&gt;=70 GROUP BY sex;<br>– 分页查询<br>– 每页显示三条数据<br>SELECT * FROM student LIMIT 0,3; – 第一页 0为开始的下标，3为显示的条数<br>SELECT * FROM student LIMIT 3,3; – 第二页</p>
@@ -194,9 +196,19 @@
             <span class="tooltip-content">
               <span class="tooltip-text">
                 <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>一分也是爱，好兄弟<i class="icon icon-quo-right"></i></p>
                   <div class="reward-box">
                     
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/zfb.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/wx.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
                     
                   </div>
                 </span>
@@ -309,6 +321,26 @@
 </aside>
 
 
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="mysql练习" data-title="mysql练习" data-url="http://example.com/2021/08/21/mysql%E7%BB%83%E4%B9%A0/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
   
   
@@ -490,7 +522,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">一个个人的小博客&lt;br&gt;&lt;br&gt;记录学习记录生活&lt;br&gt;----tianxiao</div>
   	  	
     	</section>
     

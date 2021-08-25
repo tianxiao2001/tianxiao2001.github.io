@@ -16,7 +16,7 @@
 <meta property="og:description" content="JDBC学习笔记1.java程序员不需要关心具体是哪个品牌的数据库，只需要面向JDBC接口写代码。面向接口编程，面向抽象编程，不要面向具体编程 2.JDBC编程六步（需要背会）：第一步：注册驱动（作用：告诉Java程序，即将要连接的是哪个品牌的数据库）第二步：获取连接（表示JVM的进程和数据库进程之间的通道打开了，这是属于进程之间的通信，重量级的，使用之完后一定要关闭。第三步：获取数据库操作对象（">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-08-21T08:38:21.000Z">
-<meta property="article:modified_time" content="2021-08-22T07:32:59.424Z">
+<meta property="article:modified_time" content="2021-08-25T06:36:54.697Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -47,7 +47,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="" class="js-avatar">
+			<img src="/img/touxiang.jpg" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/"></a></h1>
@@ -83,11 +83,11 @@
 				
 					<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+					<a class="weibo" target="_blank" href="/www.sina.com" title="weibo"><i class="icon-weibo"></i></a>
 		        
 					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
 		        
-					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+					<a class="zhihu" target="_blank" href="/www.zhihu.com" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
 			</div>
 		</nav>
@@ -105,7 +105,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="" class="js-avatar">
+				<img src="/img/touxiang.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author"></h1>
@@ -124,11 +124,11 @@
 					
 						<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+						<a class="weibo" target="_blank" href="/www.sina.com" title="weibo"><i class="icon-weibo"></i></a>
 			        
 						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
 			        
-						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+						<a class="zhihu" target="_blank" href="/www.zhihu.com" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
 				</div>
 			</nav>
@@ -175,7 +175,10 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="JDBC学习笔记"><a href="#JDBC学习笔记" class="headerlink" title="JDBC学习笔记"></a>JDBC学习笔记</h3><p>1.java程序员不需要关心具体是哪个品牌的数据库，只需要面向JDBC接口写代码。面向接口编程，面向抽象编程，不要面向具体编程</p>
-<h5 id="2-JDBC编程六步（需要背会）："><a href="#2-JDBC编程六步（需要背会）：" class="headerlink" title="2.JDBC编程六步（需要背会）："></a>2.JDBC编程六步（需要背会）：</h5><p>第一步：注册驱动（作用：告诉Java程序，即将要连接的是哪个品牌的数据库）<br>第二步：获取连接（表示JVM的进程和数据库进程之间的通道打开了，这是属于进程之间的通信，重量级的，使用之完后一定要关闭。<br>第三步：获取数据库操作对象（专门执行sql语句的对象）<br>第四步：执行SQL语句（DQL DML……）（使用Statement创建的对象调用executeUpdate方法，实现向表中增删改数据，查用executeQuery方法）<br>             int executeUpdate(insert/delete/update)<br>             ResultSet executeQuery(select)<br>第五步：处理查询结果集（只有当第四步执行的是select语句的时候，才有这第五步处理查询结果集。）<br>第六步：释放资源（使用完资源之后一定要关闭资源。java和数据库之间属于进程间的通信，开启之后一定要关闭）</p>
+<h5 id="2-JDBC编程六步（需要背会）："><a href="#2-JDBC编程六步（需要背会）：" class="headerlink" title="2.JDBC编程六步（需要背会）："></a>2.JDBC编程六步（需要背会）：</h5><p>第一步：注册驱动（作用：告诉Java程序，即将要连接的是哪个品牌的数据库）<br>第二步：获取连接（表示JVM的进程和数据库进程之间的通道打开了，这是属于进程之间的通信，重量级的，使用之完后一定要关闭。<br>第三步：获取数据库操作对象（专门执行sql语句的对象）</p>
+<span id="more"></span>
+
+<p>第四步：执行SQL语句（DQL DML……）（使用Statement创建的对象调用executeUpdate方法，实现向表中增删改数据，查用executeQuery方法）<br>             int executeUpdate(insert/delete/update)<br>             ResultSet executeQuery(select)<br>第五步：处理查询结果集（只有当第四步执行的是select语句的时候，才有这第五步处理查询结果集。）<br>第六步：释放资源（使用完资源之后一定要关闭资源。java和数据库之间属于进程间的通信，开启之后一定要关闭）</p>
 <p>4.漏洞：用户名：fdsa<br>           密码：fdsa’ or ‘1’=’1   （密码被当做了sql语句的一部分）<br>           登录成功<br>       这种现象被称为SQL注入（安全隐患）。（黑客经常使用）</p>
 <h5 id="5-导致SQL注入的根本原因是什么？"><a href="#5-导致SQL注入的根本原因是什么？" class="headerlink" title="5.导致SQL注入的根本原因是什么？"></a>5.导致SQL注入的根本原因是什么？</h5><p>​          用户输入的信息中含有sql语句的关键字，并且这些关键字参与sql语句的编辑过程<br>​          导致sql语句的原意被扭曲，进而达到sql注入</p>
 <p> 解决JDBCTest02中的sql注入问题<br>      只要用户提供的信息不参与SQL语句的编译过程，问题就解决了。<br>      即使用户输入的信息中含有SQL语句关键字，但没有参与编译，不起作用<br>      要想用户输入的信息不参与编译，那么必须使用java.sql.PreparedStatement<br>      PreparedStatement接口继承了java.sql.Statement<br>      PreparedStatement是属于编译的数据库操作对象<br>      原理：预先对SQL语句的框架进行编译，然后再给SQL语句传值</p>
@@ -280,9 +283,19 @@ private static Map&lt;String, String&gt; initUI() &#123;
             <span class="tooltip-content">
               <span class="tooltip-text">
                 <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>一分也是爱，好兄弟<i class="icon icon-quo-right"></i></p>
                   <div class="reward-box">
                     
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/zfb.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/wx.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
                     
                   </div>
                 </span>
@@ -390,6 +403,26 @@ private static Map&lt;String, String&gt; initUI() &#123;
 </aside>
 
 
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="JDBC学习笔记" data-title="JDBC学习笔记" data-url="http://example.com/2021/08/21/JDBC%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
   
   
@@ -571,7 +604,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">一个个人的小博客&lt;br&gt;&lt;br&gt;记录学习记录生活&lt;br&gt;----tianxiao</div>
   	  	
     	</section>
     

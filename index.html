@@ -43,7 +43,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="" class="js-avatar">
+			<img src="/img/touxiang.jpg" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/"></a></h1>
@@ -79,11 +79,11 @@
 				
 					<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+					<a class="weibo" target="_blank" href="/www.sina.com" title="weibo"><i class="icon-weibo"></i></a>
 		        
 					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
 		        
-					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+					<a class="zhihu" target="_blank" href="/www.zhihu.com" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
 			</div>
 		</nav>
@@ -101,7 +101,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="" class="js-avatar">
+				<img src="/img/touxiang.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author"></h1>
@@ -120,11 +120,11 @@
 					
 						<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+						<a class="weibo" target="_blank" href="/www.sina.com" title="weibo"><i class="icon-weibo"></i></a>
 			        
 						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
 			        
-						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+						<a class="zhihu" target="_blank" href="/www.zhihu.com" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
 				</div>
 			</nav>
@@ -175,372 +175,9 @@
         <h2 id="一、-EL表达式的使用"><a href="#一、-EL表达式的使用" class="headerlink" title="一、  EL表达式的使用"></a>一、  EL表达式的使用</h2><p>EL（Expression Language） 是为了使JSP写起来更加简单。表达式语言的灵感来自于 ECMAScript 和 XPath 表达式语言，它提供了在 JSP 中简化表达式的方法，让Jsp的代码更加简化。EL 语法很简单，使用上很方便。${}是其语法的关键标志</p>
 <h3 id="1-1-EL表达式简化从域中取值"><a href="#1-1-EL表达式简化从域中取值" class="headerlink" title="1.1 EL表达式简化从域中取值"></a>1.1 EL表达式简化从域中取值</h3><p>EL表达式中定义了一些可以帮助我们快捷从域对象中取出数据的写法,基本语法为</p>
 <p>  ${域标志.数据名.属性名(可选)}  </p>
-<p><strong>四个域标志关键字分别为</strong></p>
-<p>requestScope   request域</p>
-<p>sessionScope   session域</p>
-<p>applicationScope application域</p>
-<p>pageScope    page域</p>
-<h3 id="1-2-EL获取对象属性的原理"><a href="#1-2-EL获取对象属性的原理" class="headerlink" title="1.2 EL获取对象属性的原理"></a>1.2 EL获取对象属性的原理</h3><p>底层采用了反射机制</p>
-<p>调用的是相应属性的getter方法，而不是属性</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">request.setAttribute(“stu”, stu2);$&#123;requestScope.stu.name  &#125;  <span class="comment">//获取对象</span></span><br><span class="line">Object value  =request.getAttribute(“stu”);  <span class="comment">//获取对象对应的类</span></span><br><span class="line">Class clazz =  value.getClass();  <span class="comment">//通过属性获取属性对应的操作方法</span></span><br><span class="line">Method method =  clazz.getMethod(<span class="string">&quot;get&quot;</span>+<span class="string">&quot;N&quot;</span>+<span class="string">&quot;ame&quot;</span>);</span><br><span class="line"><span class="comment">//开始执行</span></span><br><span class="line">Object returnValue =  method.invoke(value);    </span><br></pre></td></tr></table></figure>
-
-<p><strong>总结</strong><strong>:</strong></p>
-<p>EL表达式定义在JSP页面上,在转译之后的java文件中,会被转化成java代码</p>
-<p>EL表达式是一种后台技术,服务器上运行,不是在浏览器上运行,不能用于HTML页面</p>
-<p>EL表达式底层是通过反射实现的,在获取对象属性值时是通过对象的get方法实现的</p>
-<h3 id="1-3EL表达式对运算符的支持"><a href="#1-3EL表达式对运算符的支持" class="headerlink" title="1.3EL表达式对运算符的支持"></a>1.3EL表达式对运算符的支持</h3><p>在EL表达式中, 支持运算符的使用</p>
-<h5 id="算数运算符"><a href="#算数运算符" class="headerlink" title="算数运算符:"></a>算数运算符:</h5><ul>
-<li><ul>
-<li><ul>
-<li>/ % </li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h5 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符:"></a>比较运算符:</h5><p>== eq equals</p>
-<p>&gt;  gt greater then</p>
-<p>&lt;  lt lower then</p>
-<p>&gt;= ge greater then or equals</p>
-<p>&lt;= le lower then or equals</p>
-<p>!=  ne not equals</p>
-<h5 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符:"></a>逻辑运算符:</h5><p>|| or   &amp;&amp; and </p>
-<h5 id="三目运算符"><a href="#三目运算符" class="headerlink" title="三目运算符:"></a>三目运算符:</h5><p>${条件 ? 表达式1 : 表达式2} </p>
-<h5 id="判空运算符"><a href="#判空运算符" class="headerlink" title="判空运算符:"></a>判空运算符:</h5><p> empty </p>
-<h2 id="二、-JSTL核心标签"><a href="#二、-JSTL核心标签" class="headerlink" title="二、  JSTL核心标签"></a>二、  JSTL核心标签</h2><h3 id="2-1认识JSTL"><a href="#2-1认识JSTL" class="headerlink" title="2.1认识JSTL"></a>2.1认识JSTL</h3><p><strong>为什么需要学习JSTL</strong></p>
-<p>通过之前的案例我们发现,就算在JSP中可以使用EL表达式取出域对象中的数据,但是仍然避免不了还是要在页面中书写一些java代码.这种嵌入JAVA代码的处理比较繁琐,容易出错,且代码不容易维护. </p>
-<p><strong>什么是JSTL</strong></p>
-<p>JSTL（Java server pages standarded tag library，即JSP标准标签库）是由<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/JCP/2679009">JCP</a>（Java community Proces）所制定的标准规范，它主要提供给Java Web开发人员一个标准通用的标签库，并由Apache的Jakarta小组来维护。</p>
-<p><strong>使用JSTL的好处:</strong></p>
-<p>开发人员可以利用JSTL和EL来开发Web程序，取代传统直接在页面上嵌入Java程序的做法，以提高程序的阅读性、维护性和方便性。在jstl中, 提供了多套标签库, 用于方便在jsp中完成或简化相关操作. </p>
-<p><strong>JSTL****标签库的组成部分</strong> </p>
-<p>\1. 核心标签库: 为日常任务提供通用支持,如显示和设置变量,重复使用一组项目,测试条件以及其他操作(如导入和重定向web页面等).<br> \2. 国际化(I18N)标签库: 支持多种语言的引用程序.<br> \3. SQL标签库: 对访问和修改数据库提供标准化支持.<br> \4. XML标签库: 对XML文件处理和操作提供支持,包括XML节点的解析,迭代,基于XML数据的条件评估以及可扩展样式语言转换(Extensible Style Language Transformations , XSLT)的执行.<br> \5. 函数标签库: 通过在EL表达式中调用函数标签库中的函数来实现特定的操作,例如: ${fn:contains(sring,substring)},其功能是判断string字符串中是否包含substring字符串.</p>
-<p><strong>2.</strong> <strong>JSTL****的使用前提</strong></p>
-<p>1需要在项目中导入jstl-1.2.jar ,jstl在后台由java代码编写, jsp页面中通过标签进行使用, 使用标签时, 会自动调用后台的java方法,</p>
-<p>2 标签和方法之间的映射关系在对应的tld文件中描述. 需要在页面中通过taglib指令引入对应的标签库, uri可以在对应的tld文件中找到 </p>
-<p>  &lt;%@  taglib uri=”标签库的定位” prefix=”前缀(简称)” %&gt;  </p>
-<p><strong>核心标签库导入的语句为</strong><strong>:</strong></p>
-<p>  &lt;%@ **taglib** **prefix**=”**c**” **uri**=”**<a target="_blank" rel="noopener" href="http://java.sun.com/jsp/jstl/core**&quot;%&gt;">http://java.sun.com/jsp/jstl/core**&quot;%&gt;</a>  </p>
-<h3 id="2-1操作域对象的标签"><a href="#2-1操作域对象的标签" class="headerlink" title="2.1操作域对象的标签:"></a>2.1操作域对象的标签:</h3><p>&lt;c:set&gt;    向域对象中放入数据  setAttribute</p>
-<p>&lt;c:out&gt;   从域对象中取出数据  getAttribute</p>
-<p>&lt;c:remove&gt; 从域对象中移除数据  removeAttribute</p>
-<h2 id="一、-JSTL格式化标签"><a href="#一、-JSTL格式化标签" class="headerlink" title="一、  JSTL格式化标签"></a>一、  JSTL格式化标签</h2><h3 id="3-1-格式化标签库"><a href="#3-1-格式化标签库" class="headerlink" title="3.1 格式化标签库"></a>3.1 格式化标签库</h3><p>格式化标签库,也叫作fmt标签,是JTSL中的第二大组成部分,主要解决数据显示格式问题,让JSP页面的数据格式更加规范</p>
-<p><strong>格式化标签库导入的语句为:</strong></p>
-<p>  &lt;%@ **taglib** **prefix**=”**fmt**” **uri**=”**<a target="_blank" rel="noopener" href="http://java.sun.com/jsp/jstl/fmt**&quot;%&gt;">http://java.sun.com/jsp/jstl/fmt**&quot;%&gt;</a>  </p>
-<p>fmt标签有如下属性： </p>
-<table>
-<thead>
-<tr>
-<th><strong>属性</strong></th>
-<th><strong>描述</strong></th>
-<th><strong>是否必要</strong></th>
-<th><strong>默认值</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>value</td>
-<td>要显示的数字</td>
-<td>是</td>
-<td>无</td>
-</tr>
-<tr>
-<td>type</td>
-<td>NUMBER，CURRENCY，或 PERCENT类型</td>
-<td>否</td>
-<td>Number</td>
-</tr>
-<tr>
-<td>pattern</td>
-<td>指定一个自定义的格式化模式用与输出</td>
-<td>否</td>
-<td>无</td>
-</tr>
-<tr>
-<td>currencyCode</td>
-<td>货币码（当type=”currency”时）</td>
-<td>否</td>
-<td>取决于默认区域</td>
-</tr>
-<tr>
-<td>currencySymbol</td>
-<td>货币符号 (当 type=”currency”时)</td>
-<td>否</td>
-<td>取决于默认区域</td>
-</tr>
-<tr>
-<td>groupingUsed</td>
-<td>是否对数字分组 (TRUE 或 FALSE)</td>
-<td>否</td>
-<td>true</td>
-</tr>
-<tr>
-<td>maxIntegerDigits</td>
-<td>整型数最大的位数</td>
-<td>否</td>
-<td>无</td>
-</tr>
-<tr>
-<td>minIntegerDigits</td>
-<td>整型数最小的位数</td>
-<td>否</td>
-<td>无</td>
-</tr>
-<tr>
-<td>maxFractionDigits</td>
-<td>小数点后最大的位数</td>
-<td>否</td>
-<td>无</td>
-</tr>
-<tr>
-<td>minFractionDigits</td>
-<td>小数点后最小的位数</td>
-<td>否</td>
-<td>无</td>
-</tr>
-<tr>
-<td>var</td>
-<td>存储格式化数字的变量</td>
-<td>否</td>
-<td>Print to page</td>
-</tr>
-<tr>
-<td>scope</td>
-<td>var属性的作用域</td>
-<td>否</td>
-<td>page</td>
-</tr>
-</tbody></table>
-<p>如果type属性为percent或number，那么您就可以使用其它几个格式化数字属性。maxIntegerDigits属性和minIntegerDigits属性允许您指定整数的长度。若实际数字超过了maxIntegerDigits所指定的最大值，则数字将会被截断。 </p>
-<p>有一些属性允许您指定小数点后的位数。minFractionalDigits属性和maxFractionalDigits属性允许您指定小数点后的位数。若实际的数字超出了所指定的范围，则这个数字会被截断。</p>
-<p>数字分组可以用来在每三个数字中插入一个逗号。groupingIsUsed属性用来指定是否使用数字分组。当与minIntegerDigits属性一同使用时，就必须要很小心地来获取预期的结果了。</p>
-<p>您或许会使用pattern属性。这个属性可以让您在对数字编码时包含指定的字符。接下来的表格中列出了这些字符。 </p>
-<table>
-<thead>
-<tr>
-<th><strong>符号</strong></th>
-<th><strong>描述</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>0</td>
-<td>代表一位数字</td>
-</tr>
-<tr>
-<td>E</td>
-<td>使用指数格式</td>
-</tr>
-<tr>
-<td>#</td>
-<td>代表一位数字，若没有则显示 0，前导 0 和追尾 0 不显示。</td>
-</tr>
-<tr>
-<td>.</td>
-<td>小数点</td>
-</tr>
-<tr>
-<td>,</td>
-<td>数字分组分隔符</td>
-</tr>
-<tr>
-<td>;</td>
-<td>分隔格式</td>
-</tr>
-<tr>
-<td>-</td>
-<td>使用默认负数前缀</td>
-</tr>
-<tr>
-<td>%</td>
-<td>百分数</td>
-</tr>
-<tr>
-<td>?</td>
-<td>千分数</td>
-</tr>
-<tr>
-<td>¤</td>
-<td>货币符号，使用实际的货币符号代替</td>
-</tr>
-<tr>
-<td>X</td>
-<td>指定可以作为前缀或后缀的字符</td>
-</tr>
-<tr>
-<td>&apos;</td>
-<td>在前缀或后缀中引用特殊字符</td>
-</tr>
-</tbody></table>
-<h3 id="3-2-日期格式化"><a href="#3-2-日期格式化" class="headerlink" title="3.2 日期格式化"></a>3.2 日期格式化</h3><p>日期格式化标签是fmt标签中专门用于处理日期格式的标签</p>
-<p><a href="fmt:formatDate">fmt:formatDate</a>标签有如下属性： </p>
-<table>
-<thead>
-<tr>
-<th><strong>属性</strong></th>
-<th><strong>描述</strong></th>
-<th><strong>是否必要</strong></th>
-<th><strong>默认值</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>value</td>
-<td>要显示的日期</td>
-<td>是</td>
-<td>无</td>
-</tr>
-<tr>
-<td>type</td>
-<td>DATE, TIME, 或 BOTH</td>
-<td>否</td>
-<td>date</td>
-</tr>
-<tr>
-<td>dateStyle</td>
-<td>FULL, LONG, MEDIUM, SHORT, 或 DEFAULT</td>
-<td>否</td>
-<td>default</td>
-</tr>
-<tr>
-<td>timeStyle</td>
-<td>FULL, LONG, MEDIUM, SHORT, 或 DEFAULT</td>
-<td>否</td>
-<td>default</td>
-</tr>
-<tr>
-<td>pattern</td>
-<td>自定义格式模式</td>
-<td>否</td>
-<td>无</td>
-</tr>
-<tr>
-<td>timeZone</td>
-<td>显示日期的时区</td>
-<td>否</td>
-<td>默认时区</td>
-</tr>
-<tr>
-<td>var</td>
-<td>存储格式化日期的变量名</td>
-<td>否</td>
-<td>显示在页面</td>
-</tr>
-<tr>
-<td>scope</td>
-<td>存储格式化日志变量的范围</td>
-<td>否</td>
-<td>页面</td>
-</tr>
-</tbody></table>
-<p><a href="fmt:formatDate">fmt:formatDate</a> 标签格式模式 </p>
-<table>
-<thead>
-<tr>
-<th><strong>代码</strong></th>
-<th><strong>描述</strong></th>
-<th><strong>实例</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>G</td>
-<td>时代标志</td>
-<td>AD</td>
-</tr>
-<tr>
-<td>y</td>
-<td>不包含纪元的年份。如果不包含纪元的年份小于 10，则显示不具有前导零的年份。</td>
-<td>2002</td>
-</tr>
-<tr>
-<td>M</td>
-<td>月份数字。一位数的月份没有前导零。</td>
-<td>April &amp; 04</td>
-</tr>
-<tr>
-<td>d</td>
-<td>月中的某一天。一位数的日期没有前导零。</td>
-<td>20</td>
-</tr>
-<tr>
-<td>h</td>
-<td>12 小时制的小时。一位数的小时数没有前导零。</td>
-<td>12</td>
-</tr>
-<tr>
-<td>H</td>
-<td>24 小时制的小时。一位数的小时数没有前导零。</td>
-<td>0</td>
-</tr>
-<tr>
-<td>m</td>
-<td>分钟。一位数的分钟数没有前导零。</td>
-<td>45</td>
-</tr>
-<tr>
-<td>s</td>
-<td>秒。一位数的秒数没有前导零。</td>
-<td>52</td>
-</tr>
-<tr>
-<td>S</td>
-<td>毫秒</td>
-<td>970</td>
-</tr>
-<tr>
-<td>E</td>
-<td>周几</td>
-<td>Tuesday</td>
-</tr>
-<tr>
-<td>D</td>
-<td>一年中的第几天</td>
-<td>180</td>
-</tr>
-<tr>
-<td>F</td>
-<td>一个月中的第几个周几</td>
-<td>2 (一个月中的第二个星期三)</td>
-</tr>
-<tr>
-<td>w</td>
-<td>一年中的第几周r</td>
-<td>27</td>
-</tr>
-<tr>
-<td>W</td>
-<td>一个月中的第几周</td>
-<td>2</td>
-</tr>
-<tr>
-<td>a</td>
-<td>a.m./p.m. 指示符</td>
-<td>PM</td>
-</tr>
-<tr>
-<td>k</td>
-<td>小时(12 小时制的小时)</td>
-<td>24</td>
-</tr>
-<tr>
-<td>K</td>
-<td>小时(24 小时制的小时)</td>
-<td>0</td>
-</tr>
-<tr>
-<td>z</td>
-<td>时区</td>
-<td>中部标准时间</td>
-</tr>
-<tr>
-<td>&apos;</td>
-<td></td>
-<td>转义文本</td>
-</tr>
-<tr>
-<td>&apos;&apos;</td>
-<td></td>
-<td>单引号</td>
-</tr>
-</tbody></table>
-
+        
+          <a class="article-more-a" href="/2021/08/25/JSTL-EL%EF%BC%9A%E6%A0%87%E5%87%86%E6%A0%87%E7%AD%BE%E5%BA%93%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AF%AD%E8%A8%80/#more">more >></a>
+        
       
 
       
@@ -605,28 +242,9 @@
         <h3 id="1-JSP执行过程"><a href="#1-JSP执行过程" class="headerlink" title="1.JSP执行过程"></a>1.JSP执行过程</h3><p>JSP的执行过程大致可以分为两个时期：转译时期和请求时期</p>
 <h5 id="转译时期"><a href="#转译时期" class="headerlink" title="转译时期"></a>转译时期</h5><p>​    JSP网页转译成Servlet，生成.java文件，然后再编译生成.class字节转码文件</p>
 <h5 id="请求时期"><a href="#请求时期" class="headerlink" title="请求时期"></a>请求时期</h5><p>   运行.class字节码文件，处理请求</p>
-<h4 id="JSP的性能问题"><a href="#JSP的性能问题" class="headerlink" title="JSP的性能问题"></a>JSP的性能问题</h4><p>有人都会认为JSP的执行性能会和Servlet相差很多，其实执行性能上的差别只在第一次的执行。因为JSP在执行第一次后，会被编译成Servlet的类文件，即.class，当再重复调用执行时，就直接执行第一次所产生的Servlet,而不再重新把JSP编译成Servelt。除了第一次的编译会花较久的时间之外，之后JSP和同等功能的Servlet的执行速度就几乎相同了。</p>
-<p>JSP慢的原因不仅仅是第一次请求需要进行转译和编译,而是因为JSP作为一种动态资源,本质上就是Servlet,它是需要运行代码才会生成资源,和HTML本身资源已经存在,直接返回,着本质上的差异,另外,JSP转译之后,内部通过大量IO流形式发送页面内容,IO流本身是一种重量级操作,是比较消耗资源的</p>
-<h4 id="JSP的继承结构"><a href="#JSP的继承结构" class="headerlink" title="JSP的继承结构"></a>JSP的继承结构</h4><p>​    JSP文件转换成JAVA代码之后,它默认继承了HttpJSPBase,实现了JSPSourceDependent,和JSPSourceImports两个接口,其中HttpJSPBase又继承了HttpServlet ,也就是说,JSP本质上就是一个Servlet</p>
-<h4 id="JSP的使用建议"><a href="#JSP的使用建议" class="headerlink" title="JSP的使用建议"></a>JSP的使用建议</h4><p>   JSP和Servlet本质上是相同的,JSP页面功能和Servlet后台功能是完全能够互换的,但是JSP的编码风格是在HTML中嵌入少量JAVA代码,它用于显示数据比较方便,如果Servlet上嵌入HTML字符串处理就比较麻烦</p>
-<p>Servlet更适合专门编写JAVA代码,JSP更擅长展示数据,Servlet更适合做后台程序,所以在分层上,我们往往将Servlet作为控制层Controller使用,JSP作为视图层view使用,可以让Servlet将数据发送给JSP,然后在JSP上展示数据</p>
-<p><img src="/2021/08/25/JSP-Java%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%A1%B5%E9%9D%A2%E6%8A%80%E6%9C%AF/clip_image002.jpg" alt="img"></p>
-<h3 id="2-JSP内置对象"><a href="#2-JSP内置对象" class="headerlink" title="2.JSP内置对象"></a>2.JSP内置对象</h3><h5 id="2-1-什么是内置对象"><a href="#2-1-什么是内置对象" class="headerlink" title="2.1 什么是内置对象"></a>2.1 什么是内置对象</h5><p>  因为JSP的本质是Servlet,在JSP文件经过转译之后,生成JAVA代码,在运行时,JSP给我们准备好了九个可以直接使用而不用我们自己去new的对象,这九个对象我们称之为内置对象.内置对象完全有JSP自行去维护,我们直接使用即可</p>
-<h5 id="2-2-九大内置对象"><a href="#2-2-九大内置对象" class="headerlink" title="2.2 九大内置对象"></a>2.2 九大内置对象</h5><p><img src="/2021/08/25/JSP-Java%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%A1%B5%E9%9D%A2%E6%8A%80%E6%9C%AF/clip_image002-16298688701501.jpg" alt="img"></p>
-<p><strong>四个域对象</strong> </p>
-<p>pageContext page域   当前页面内可用</p>
-<p>request    reqeust域  单次请求</p>
-<p>session    session域  单次会话</p>
-<p>application  application 域项目运行</p>
-<p><strong>响应对象</strong></p>
-<p>response  响应对象</p>
-<p><strong>输出流对象</strong></p>
-<p>out    打印流对象 </p>
-<p><strong>其他三个对象</strong></p>
-<p>servletConfig: 由于JSP本身也是一个Servlet,所以容器也会给我们准备一个ServletConfig</p>
-<p>page    就是他this对象 当前JSP对象本身  </p>
-<p>exception  异常对象,在错误提示页上使用,当isErrorpage=true 才具有该对象</p>
-
+        
+          <a class="article-more-a" href="/2021/08/25/JSP-Java%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%A1%B5%E9%9D%A2%E6%8A%80%E6%9C%AF/#more">more >></a>
+        
       
 
       
@@ -693,24 +311,9 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserMapper</span> </span>&#123;</span><br><span class="line">    <span class="comment">//查询 select * from user where uname=? and pwd=?</span></span><br><span class="line">    <span class="comment">//查询返回值 不是对象就是集合</span></span><br><span class="line">    <span class="meta">@Select(&quot;select * from user where uname=#&#123;param1&#125; and pwd=#&#123;param2&#125;&quot;)</span></span><br><span class="line">    <span class="function">User <span class="title">selectone</span><span class="params">(String uname, String pwd)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="pojo：省略"><a href="#pojo：省略" class="headerlink" title="pojo：省略"></a>pojo：省略</h4><p>注意类型</p>
-<h4 id="service"><a href="#service" class="headerlink" title="service:"></a>service:</h4><h5 id="impl"><a href="#impl" class="headerlink" title="impl:"></a>impl:</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShopServiceImpl</span> <span class="keyword">implements</span> <span class="title">ShopService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Shop&gt; <span class="title">findAll</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ShopMapper mapper = DBUtil.getSqlSession().getMapper(ShopMapper.class);</span><br><span class="line">        List&lt;Shop&gt; shops = mapper.selectAll();</span><br><span class="line">        DBUtil.closeAll();</span><br><span class="line">        <span class="keyword">return</span> shops;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">save</span><span class="params">(Shop shop)</span> </span>&#123;</span><br><span class="line">        ShopMapper mapper = DBUtil.getSqlSession().getMapper(ShopMapper.class);</span><br><span class="line">        Integer insert = mapper.insert(shop);</span><br><span class="line">        DBUtil.closeAll();</span><br><span class="line">        <span class="keyword">return</span> insert;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">remove</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">        ShopMapper mapper = DBUtil.getSqlSession().getMapper(ShopMapper.class);</span><br><span class="line">        Integer delete = mapper.delete(id);</span><br><span class="line">        DBUtil.closeAll();</span><br><span class="line">        <span class="keyword">return</span> delete;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Shop <span class="title">findOne</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">        ShopMapper mapper = DBUtil.getSqlSession().getMapper(ShopMapper.class);</span><br><span class="line">        Shop shop = mapper.selectOne(id);</span><br><span class="line">        DBUtil.closeAll();</span><br><span class="line">        <span class="keyword">return</span>  shop;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">change</span><span class="params">(Shop shop)</span> </span>&#123;</span><br><span class="line">        ShopMapper mapper = DBUtil.getSqlSession().getMapper(ShopMapper.class);</span><br><span class="line">        Integer update = mapper.update(shop);</span><br><span class="line">        DBUtil.closeAll();</span><br><span class="line">        <span class="keyword">return</span> update;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">login</span><span class="params">(String uname, String pwd)</span> </span>&#123;</span><br><span class="line">    UserMapper mapper = DBUtil.getSqlSession().getMapper(UserMapper.class);</span><br><span class="line">    User user=mapper.selectone(uname, pwd);</span><br><span class="line">    DBUtil.closeAll();</span><br><span class="line">    <span class="keyword">return</span> user;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="接口："><a href="#接口：" class="headerlink" title="接口："></a>接口：</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ShopService</span> </span>&#123;</span><br><span class="line">    <span class="comment">//查询所有商品的信息</span></span><br><span class="line">    <span class="function">List&lt;Shop&gt; <span class="title">findAll</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">//添加商品信息</span></span><br><span class="line">    <span class="function">Integer <span class="title">save</span><span class="params">(Shop shop)</span></span>;</span><br><span class="line">    <span class="comment">//删除商品信息</span></span><br><span class="line">    <span class="function">Integer <span class="title">remove</span><span class="params">(Integer id)</span></span>;</span><br><span class="line">    <span class="comment">//查询单个商品信息</span></span><br><span class="line">    <span class="function">Shop <span class="title">findOne</span><span class="params">(Integer id)</span></span>;</span><br><span class="line">    <span class="comment">//修改单个商品信息</span></span><br><span class="line">    <span class="function">Integer <span class="title">change</span><span class="params">(Shop shop)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line">    <span class="function">User <span class="title">login</span><span class="params">(String uname,String pwd)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet:"></a>Servlet:</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebServlet(urlPatterns = &quot;/ShopServlet&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShopServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        req.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">        String method = req.getParameter(<span class="string">&quot;method&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span>(<span class="string">&quot;findAll&quot;</span>.equals(method))&#123;</span><br><span class="line">            findAll(req, resp);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="string">&quot;add&quot;</span>.equals(method))&#123;</span><br><span class="line">            add(req, resp);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="string">&quot;del&quot;</span>.equals(method))&#123;</span><br><span class="line">            del(req, resp);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="string">&quot;findOne&quot;</span>.equals(method))&#123;</span><br><span class="line">            findOne(req, resp);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="string">&quot;update&quot;</span>.equals(method))&#123;</span><br><span class="line">            update(req, resp);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//查询所有商品信息</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">findAll</span> <span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="comment">//1.接收前台页面中的数据</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//2数据处理--返回结果</span></span><br><span class="line">        ShopServiceImpl shopService = <span class="keyword">new</span> ShopServiceImpl();</span><br><span class="line">        List&lt;Shop&gt; all = shopService.findAll();</span><br><span class="line">        <span class="comment">//3.根据返回的结果给用户做出响应</span></span><br><span class="line">        req.setAttribute(<span class="string">&quot;all&quot;</span>, all);</span><br><span class="line">        req.getRequestDispatcher(<span class="string">&quot;/main.jsp&quot;</span>).forward(req, resp);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//添加商品信息</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">add</span> <span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        req.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">        <span class="comment">//1.接收前台页面中的数据</span></span><br><span class="line">        String name = req.getParameter(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">        String price1 = req.getParameter(<span class="string">&quot;price&quot;</span>);</span><br><span class="line">        <span class="keyword">float</span> price = Float.parseFloat(price1);</span><br><span class="line">        String production = req.getParameter(<span class="string">&quot;production&quot;</span>);</span><br><span class="line">        Shop shop = <span class="keyword">new</span> Shop(<span class="keyword">null</span>,name,price,production);</span><br><span class="line">        <span class="comment">//2.数据处理--返回结果</span></span><br><span class="line">        ShopServiceImpl shopService = <span class="keyword">new</span> ShopServiceImpl();</span><br><span class="line">        Integer save = shopService.save(shop);</span><br><span class="line">        <span class="comment">//3.根据返回的结果做出响应</span></span><br><span class="line">        <span class="keyword">if</span>(save&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            resp.sendRedirect(req.getContextPath()+<span class="string">&quot;/ShopServlet?method=findAll&quot;</span>);</span><br><span class="line"><span class="comment">//            findAll(req, resp);</span></span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            req.setAttribute(<span class="string">&quot;msg&quot;</span>, <span class="string">&quot;添加失败！&quot;</span>);</span><br><span class="line">            req.getRequestDispatcher(<span class="string">&quot;/add.jsp&quot;</span>).forward(req, resp);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//删除商品</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">del</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="comment">//1.接收前台页面中的数据</span></span><br><span class="line">        String i = req.getParameter(<span class="string">&quot;id&quot;</span>);</span><br><span class="line">        <span class="keyword">int</span> id = Integer.parseInt(i);</span><br><span class="line">        <span class="comment">//2.数据处理--返回结果</span></span><br><span class="line">        ShopServiceImpl shopService = <span class="keyword">new</span> ShopServiceImpl();</span><br><span class="line">        Integer remove = shopService.remove(id);</span><br><span class="line">        <span class="comment">//3.根据返回的结果做出响应</span></span><br><span class="line">        resp.sendRedirect(req.getContextPath()+<span class="string">&quot;/ShopServlet?method=findAll&quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//商品修改</span></span><br><span class="line">      <span class="comment">//1.修改前查询</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">findOne</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="comment">//1.获取前台页面中的数据</span></span><br><span class="line">        String i = req.getParameter(<span class="string">&quot;id&quot;</span>);</span><br><span class="line">        <span class="keyword">int</span> id = Integer.parseInt(i);</span><br><span class="line">        <span class="comment">//2.处理数据，得到结果</span></span><br><span class="line">        ShopServiceImpl shopService = <span class="keyword">new</span> ShopServiceImpl();</span><br><span class="line">        Shop one = shopService.findOne(id);</span><br><span class="line">        <span class="comment">//3.根据返回的结果给用户做出响应</span></span><br><span class="line">        req.setAttribute(<span class="string">&quot;t1&quot;</span>, one);</span><br><span class="line">        req.getRequestDispatcher(<span class="string">&quot;/update.jsp&quot;</span>).forward(req,resp);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">      <span class="comment">//2.完成修改</span></span><br><span class="line">      <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">          req.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">          <span class="comment">//1.接收前台的数据</span></span><br><span class="line">          <span class="keyword">int</span> id = Integer.parseInt(req.getParameter(<span class="string">&quot;id&quot;</span>));</span><br><span class="line">          String name = req.getParameter(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">          <span class="keyword">float</span> price = Float.parseFloat(req.getParameter(<span class="string">&quot;price&quot;</span>));</span><br><span class="line">          String production = req.getParameter(<span class="string">&quot;production&quot;</span>);</span><br><span class="line">          Shop shop = <span class="keyword">new</span> Shop(id,name,price,production);</span><br><span class="line">          <span class="comment">//2.处理数据-得到结果</span></span><br><span class="line">          ShopServiceImpl shopService = <span class="keyword">new</span> ShopServiceImpl();</span><br><span class="line">          Integer change = shopService.change(shop);</span><br><span class="line">          <span class="comment">//3.根据结果，做出响应</span></span><br><span class="line">          <span class="keyword">if</span>(change!=<span class="keyword">null</span>)&#123;</span><br><span class="line">              resp.sendRedirect(req.getContextPath()+<span class="string">&quot;/ShopServlet?method=findAll&quot;</span>);</span><br><span class="line">          &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">              req.setAttribute(<span class="string">&quot;msg&quot;</span>, <span class="string">&quot;修改失败&quot;</span>);</span><br><span class="line">              req.getRequestDispatcher(<span class="string">&quot;/update.jsp&quot;</span>).forward(req, resp);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebServlet(urlPatterns = &quot;/UserLoginServlet&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserLoginServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        req.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">        <span class="comment">//1.接受前台页面中的数据</span></span><br><span class="line">        String uname = req.getParameter(<span class="string">&quot;uname&quot;</span>);</span><br><span class="line">        String pwd = req.getParameter(<span class="string">&quot;pwd&quot;</span>);</span><br><span class="line">        <span class="comment">//2.数据处理-返回结果</span></span><br><span class="line">        UserService userService=<span class="keyword">new</span> UserServiceImpl();</span><br><span class="line">        User user = userService.login(uname, pwd);</span><br><span class="line">        <span class="comment">//3.根据返回的结果做出响应</span></span><br><span class="line">        <span class="keyword">if</span>(user!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            resp.sendRedirect(req.getContextPath()+<span class="string">&quot;/ShopServlet?method=findAll&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            req.setAttribute(<span class="string">&quot;msg&quot;</span>, <span class="string">&quot;登录失败&quot;</span>);</span><br><span class="line">            <span class="comment">//转发的/和重定向的/含义不一样，转发的/是上下文路径</span></span><br><span class="line">            req.getRequestDispatcher(<span class="string">&quot;/login.jsp&quot;</span>).forward(req, resp);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DBUtil</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">private</span>   <span class="keyword">static</span> SqlSessionFactory factory;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">private</span>  <span class="keyword">static</span> ThreadLocal&lt;SqlSession&gt;  tl=<span class="keyword">new</span> ThreadLocal&lt;&gt;();</span><br><span class="line"></span><br><span class="line">      <span class="keyword">static</span> &#123;</span><br><span class="line">          InputStream inputStream = <span class="keyword">null</span>;</span><br><span class="line">          <span class="keyword">try</span> &#123;</span><br><span class="line">              <span class="comment">//[1]解析myBatis.xml文件</span></span><br><span class="line">              inputStream = Resources.getResourceAsStream(<span class="string">&quot;mybatis.xml&quot;</span>);</span><br><span class="line">              <span class="comment">//[2]获得sqlsession工厂</span></span><br><span class="line">               factory=<span class="keyword">new</span> SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">          &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">              e.printStackTrace();</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      <span class="comment">//获得sqlsession对象</span></span><br><span class="line">      <span class="function"><span class="keyword">public</span>  <span class="keyword">static</span> SqlSession   <span class="title">getSqlSession</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">          <span class="comment">//获得ThreadLoacl中的sqlsession对象</span></span><br><span class="line">          SqlSession sqlSession = tl.get();</span><br><span class="line"></span><br><span class="line">          <span class="keyword">if</span>(sqlSession==<span class="keyword">null</span>)&#123;</span><br><span class="line"></span><br><span class="line">               sqlSession = factory.openSession(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">               <span class="comment">//把创建好的对象放到ThreadLoacl</span></span><br><span class="line">               tl.set(sqlSession);</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          <span class="keyword">return</span>  tl.get();</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      <span class="comment">//关闭sqlsession</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span>  <span class="keyword">static</span>    <span class="keyword">void</span>     <span class="title">closeAll</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        SqlSession sqlSession = tl.get();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(sqlSession!=<span class="keyword">null</span>)&#123;</span><br><span class="line"></span><br><span class="line">            sqlSession.close();</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        tl.set(<span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>前端代码略，注意&lt;%%&gt;和${}的使用即可</p>
-
+        
+          <a class="article-more-a" href="/2021/08/24/%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%A0%81/#more">more >></a>
+        
       
 
       
@@ -774,112 +377,9 @@
       
         <p><strong>1.</strong>  <strong>xml****配置</strong></p>
 <p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image002.jpg" alt="img"></p>
-<p>**2.**<strong>解决中文乱码</strong></p>
-<p>*<strong>1.*</strong></p>
-<p>*//<strong>解决post提交方式中文乱码<br>* request.setCharacterEncoding(</strong>“utf-8”**);</p>
-<p>2.</p>
-<p>*//<strong>解决get提交方式中文乱码<br> //把乱码的字符串转成原始字节数组<br>* <strong>byte</strong>[] bytes=a.getBytes(</strong>“ISO-8859-1”**);<br> *//**把原始字节数组转成utf-8格式字符串<br>* String s = <strong>new</strong> String(bytes, <strong>“utf-8”</strong>);</p>
-<p>**3.**<strong>欢迎界面、错误页面设置</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;welcome-file-list&gt;</span><br><span class="line">  &lt;welcome-file&gt;login.jsp&lt;/welcome-file&gt;</span><br><span class="line">&lt;/welcome-file-list&gt;</span><br><span class="line"> </span><br><span class="line">&lt;error-page&gt;</span><br><span class="line">  &lt;error-code&gt;404&lt;/error-code&gt;</span><br><span class="line">  &lt;location&gt;/login&lt;/location&gt;</span><br><span class="line">&lt;/error-page&gt;</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
-
-<p><strong>4.Servlet****的生命周期</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">  1.Servlet是一个单实例、多线程的应用</span><br><span class="line">  2.Servlet是服务器创建的对象，并不是服务器创建的</span><br><span class="line">  3.Servlet的生命周期</span><br><span class="line">      1.类加载   Class class=Class.forName(&quot;全路径&quot;)；</span><br><span class="line">      2.实例化   Object obj=class.newInstance();</span><br><span class="line">      3.初始化   Method m1=class.getMethod(&quot;init&quot;,ServletConfig.class);</span><br><span class="line">                 m1.invole(pbj,conf);</span><br><span class="line">      4.服务请求  离不开反射</span><br><span class="line">      5.销毁      离不开反射</span><br><span class="line"> 4.类加载的时机</span><br><span class="line">      1.首次访问的时候（默认）</span><br><span class="line">      2.启动服务器创建当前servlet</span><br><span class="line">        &lt;load-on-startup&gt;0&lt;/load-on-startup&gt; 数字越小，加载顺序越往前</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> */</span><br></pre></td></tr></table></figure>
-
-<p><strong>Servlet****的继承结构</strong></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image004.jpg" alt="img"></p>
-<p>**5.**<strong>参数读取ServletContext和ServletConfig</strong></p>
-<p><strong>5.1ServletContext</strong></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image006.jpg" alt="img"></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image008.jpg" alt="img"></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image010.jpg" alt="img"></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image011.png" alt="img"></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image012.png" alt="img"></p>
-<p>**6.**<strong>基于注解式开发Servlet</strong></p>
-<p>省得在总是在web.ml写</p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image014.jpg" alt="img"></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image015.png" alt="img"></p>
-<p><strong>课后题目：</strong></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image017.jpg" alt="img"></p>
-<p><strong>连接数据库的登录：(servlet+jsp+mysql)</strong></p>
-<p><strong>关键点：连接数据库，将输入的数据和数据库中的数据比对</strong></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image019.jpg" alt="img"></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image021.jpg" alt="img"></p>
-<p><strong>7.HttpServletRequest****常用方法</strong></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image023.jpg" alt="img"></p>
-<p>要记住URI URL 和getQueryString</p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image025.jpg" alt="img"></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image027.jpg" alt="img"></p>
-<p><strong>8.HttpServletResponse****常用方法</strong></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image029.jpg" alt="img"></p>
-<p>**9.**<strong>路径</strong></p>
-<p>**1.**<strong>绝对路径</strong></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image031.jpg" alt="img"></p>
-<p><strong>2.</strong>   <strong>根路径</strong></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image033.jpg" alt="img"></p>
-<p><strong>3.</strong>   <strong>相对路径</strong></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image035.jpg" alt="img"></p>
-<p><strong>4.</strong>   <strong>路径的使用情况</strong></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image037.jpg" alt="img">**10.**<strong>请求转发和相应重定向</strong></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image038.png" alt="img"></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image040.jpg" alt="img"></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image041.png" alt="img"></p>
-<p><strong>转发：</strong></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image043.jpg" alt="img"></p>
-<p><strong>重定向：</strong></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image045.jpg" alt="img"></p>
-<p><em>请求转发和重定向的共同点：<br>   都可以实现服务器页面的跳转<br> 请求转发和重定向的不同点：<br>  1.语句不同<br>   转发：request.getRequestDispatcher(“main.jsp”).forward(request, response);<br>   重定向：response.sendRedirect(“main.jsp “);<br> 2.URL显示不同<br>   转发：显示的是跳转之前的地址<br>   重定向：显示的是跳转之后的地址<br> 3.跳转前后i是否可以共享数据<br>   转发：跳转之后可以<br>   重定向：不可以<br> 4.原理不同<br>   转发：转发的整个过程中，没有产生新的请求，只是把之前的请求进行了传递，转发的过程只是进行了请求转递，所以跳转前后可以进行数据传递<br>      由于转发的整个过程是服务器内部的跳转，服务器根本不知道，所以URL地址不会改变<br>   重定向：重定向的整个过程中产生了新的请求，所以跳转前后没有办法实现数据共享，重定向的整个过程浏览器是知道的，所以URL地址会改变<br> 5.效率不同<br>   转发：效率较高<br>   重定向：效率较低<br> 6.跳转范围不同：<br>   转发：只能在当前项目中跳转<br>   重定向：可以在任何服务器跳转<br> 7.路径不同：<br>  绝对路径：<br>   转发：不支持<br>   重定向：支持<br>  相对路径（相对于URL地址）：<br>   都支持<br>  根路径：<br>   转发：  / 代表的是当前项目<br>   重定向： / 代表的是当前服务器<br> 8.表单重复提交<br>   转发：会<br>   重定向： 不会</em></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image046.png" alt="img"></p>
-<p><strong>11.Cookie****对象和HttpSession对象</strong></p>
-<p><strong>原理：</strong></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image048.jpg" alt="img"></p>
-<p><strong>Cookie****对象的特点：</strong></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image050.jpg" alt="img"></p>
-<p><strong>Cookie****记住自我的实现：</strong></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image052.jpg" alt="img"></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image053.png" alt="img"> </p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image054.png" alt="img"></p>
-<p><strong>Cookie****跨域问题：</strong></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image056.jpg" alt="img"></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image058.jpg" alt="img"></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image060.jpg" alt="img"></p>
-<p><strong>Cookie****对象总结：</strong></p>
-<p>Cookie对于存储内容是基于明文的方式存储的，所以安全性很低。不要在Cookie中存放安全敏感数据。在数据存储时，虽然在Servlet4.0中Cookie支持中文，但是建议对Cookie中存放的内容做编码处理，也可提高安全性。</p>
-<p><strong>Session:</strong></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image062.jpg" alt="img"></p>
-<p>Session对象只可以创建一次，第二次创建不是创建，而是获取第一次的session。因为jsp里有和Servlet交互的产物内置对象，所以如果首页是jsp,即便没有HttpServletRequestSession(true),Session也会创建</p>
-<p><strong>Session****实现的原理：</strong></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image064.jpg" alt="img"></p>
-<p><strong>Session****失效的时机：</strong></p>
-<p>** 1.*<em>手动注销Session invalidate();<br> * 2.设置Session的超时时间1<br> *  (1).xml中设置整个项目<br> * <session-config><br>  <session-timeout>60</session-timeout><br>  </session-config><br>   (2)jsp文件中设置某个页面<br>   &lt;%session.setMaxInactiveInterval(10);%&gt;<br>  3.关闭浏览器</em></p>
-<p><em>HttpSession**对象的特点</em></p>
-<p><em>1.</em>   <em>HttpSession**保存在服务器</em></p>
-<p>\2.   HttpSession可以存储任何类型的数据</p>
-<p>\3.   HttpSession使用Key和Value结构存储</p>
-<p>\4.   HttpSession存储数据大小无限制</p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image066.jpg" alt="img"></p>
-<p><strong>作业：</strong></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image068.jpg" alt="img"></p>
-<p>**12.**<strong>关于域对象的使用</strong></p>
-<p><strong>域对象：</strong>对象作为存储数据的区域</p>
-<p>JAVA中的域对象就是在一定的范围内，可以实现数据的存储和读取的一些对象，在某些特定的范围内能够实现数据共享的对象</p>
-<p>四大域对象：</p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image070.jpg" alt="img"></p>
-<p><strong>Page****域</strong></p>
-<p>&lt;%</p>
-<p>  //只能在当前页面设置，当前页面获得</p>
-<p>  pageContext.setAttribute(“msg”, “tianxiao”);</p>
-<p>%&gt;</p>
-<p><strong>Request****域：</strong></p>
-<p>*&lt;%–<br>  request**作用域对象是当前请求中都是有效的<br>  动态包含+静态包含+转发<br> –%&gt;<br>* &lt;%<br> request.setAttribute(“msg”, “tianxiao”);<br> request.getRequestDispatcher(“/scope/request2.jsp”).forward(request, response);<br> %&gt;</p>
-<p><strong>Session****域：</strong></p>
-<p>*&lt;%–<br> session**范围：当前会话<br> request+重定向<br> –%&gt;<br>* <strong>&lt;%<br>** session.setAttribute(**”msg”**, **”tianxiao”**);<br> **%&gt;</strong></p>
-<p><strong>Application****域：</strong></p>
-<p>*&lt;%–<br> application**范围：整个应用中都可以实现数据的共享<br>         多个用户多个请求实现数据的共享</p>
-<p> –%&gt;<br>* <strong>&lt;%<br>** application.setAttribute(**”msg”**, **”tianxiao”**);<br> **%&gt;</strong></p>
-<p><strong>ServletContext****实现网站访问人数统计：</strong></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image071.png" alt="img"></p>
-<p><img src="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/clip_image072.png" alt="img"></p>
-
+        
+          <a class="article-more-a" href="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more">more >></a>
+        
       
 
       
@@ -892,111 +392,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/08/22/servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-案例商品管理系统笔记(JSP+Servlet+MyBatis)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/22/%E6%A1%88%E4%BE%8B%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0(JSP+Servlet+MyBatis)/">案例商品管理系统笔记(JSP+Servlet+MyBatis)</a>
-    </h1>
-  
-
-        
-        <a href="/2021/08/22/%E6%A1%88%E4%BE%8B%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0(JSP+Servlet+MyBatis)/" class="archive-article-date">
-  	<time datetime="2021-08-22T08:45:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="1-登录的实现"><a href="#1-登录的实现" class="headerlink" title="1.登录的实现"></a>1.登录的实现</h4><h5 id="写在前面："><a href="#写在前面：" class="headerlink" title="写在前面："></a>写在前面：</h5><p>1.首先在WEB-INF下创建lib文件，导入mybatis包和数据库包进去，再把配置文件导入到src文件中，其中DBUtil放在Util包下。</p>
-<p>依次创建pojo、mapper、service（一个serviceimpl接口和service）、control（就是servlet）</p>
-<p>要注意：</p>
-<p>delete 、update、insert是不需要设置返回类型的，都是默认返回一个int，只有select才需要</p>
-<p><strong>一定要知道什么时候加”/“,什么时候不加！！！！！</strong></p>
-<p>form action和href的时候不用加</p>
-<p><strong>2.Servlet三步骤：</strong></p>
-<p>   //1.获取前台页面中的数据</p>
-<p>   //2.处理数据，得到结果</p>
-<p>   //3.根据返回的结果给用户做出响应</p>
-<p>login.jsp</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>花卉管理系统—登录<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">base</span> <span class="attr">href</span>=<span class="string">&quot;&lt;%=request.getContextPath()+&quot;</span>/&quot;%&gt;</span>&quot;&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;UserLoginServlet&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">center</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>*****商品管理系统---登录*****<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>$&#123;requestScope.msg&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    用户名：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;uname&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    密码：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;pwd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;登录&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">center</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>UserMapper：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserMapper</span> </span>&#123;</span><br><span class="line">    <span class="comment">//查询 select * from user where uname=? and pwd=?</span></span><br><span class="line">    <span class="comment">//查询返回值 不是对象就是集合</span></span><br><span class="line">    <span class="meta">@Select(&quot;select * from user where uname=#&#123;param1&#125; and pwd=#&#123;param2&#125;&quot;)</span></span><br><span class="line">    <span class="function">User <span class="title">selectone</span><span class="params">(String uname, String pwd)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>UserLoginServlet:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserLoginServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        req.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">        <span class="comment">//1.接受前台页面中的数据</span></span><br><span class="line">        String uname = req.getParameter(<span class="string">&quot;uname&quot;</span>);</span><br><span class="line">        String pwd = req.getParameter(<span class="string">&quot;pwd&quot;</span>);</span><br><span class="line">        <span class="comment">//2.数据处理-返回结果</span></span><br><span class="line">        UserMapper mapper = DBUtil.getSqlSession().getMapper(UserMapper.class);</span><br><span class="line">        User user=mapper.selectone(uname, pwd);</span><br><span class="line">        DBUtil.closeAll();</span><br><span class="line">        <span class="comment">//3.根据返回的结果做出响应</span></span><br><span class="line">        <span class="keyword">if</span>(user!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            resp.sendRedirect(req.getContextPath()+<span class="string">&quot;/main.jsp&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            req.setAttribute(<span class="string">&quot;msg&quot;</span>, <span class="string">&quot;登录失败&quot;</span>);</span><br><span class="line">            <span class="comment">//转发的/和重定向的/含义不一样，转发的/是上下文路径</span></span><br><span class="line">            req.getRequestDispatcher(<span class="string">&quot;/login.jsp&quot;</span>).forward(req, resp);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其他代码略，以上代码没有用MVC模式</p>
-<h4 id="MVC模式的优势："><a href="#MVC模式的优势：" class="headerlink" title="MVC模式的优势："></a>MVC模式的优势：</h4><h5 id="1：耦合性低"><a href="#1：耦合性低" class="headerlink" title="1：耦合性低"></a>1：耦合性低</h5><p>视图层和业务层分离，这样就允许更改视图层代码而不用重新编译模型和控制器代码，同样，一个应用的业务流程或者业务规则的改变只需要改动MVC的模型层即可。因为模型与控制器和视图相分离，所以很容易改变应用程序的数据层和业务规则。</p>
-<h5 id="2：重用性高"><a href="#2：重用性高" class="headerlink" title="2：重用性高"></a>2：重用性高</h5><p>MVC模式允许使用各种不同样式的视图来访问同一个服务器端的代码，因为多个视图能共享一个模型，它包括任何WEB（HTTP）浏览器或者无线浏览器（wap），比如，用户可以通过电脑也可通过手机来订购某样产品，虽然订购的方式不一样，但处理订购产品的方式是一样的。由于模型返回的数据没有进行格式化，所以同样的构件能被不同的界面使用。</p>
-<p>MVC使开发和维护用户接口的技术含量降低。</p>
-<h5 id="3：开发效率提高-人员职责明确"><a href="#3：开发效率提高-人员职责明确" class="headerlink" title="3：开发效率提高,人员职责明确"></a>3：开发效率提高,人员职责明确</h5><p>使用MVC模式使开发时间得到较大的缩减，它使程序员（Java开发人员）集中精力于业务逻辑，界面程序员（HTML和JSP开发人员）集中精力于表现形式上。</p>
-<h5 id="4：耦合度低-可维护性高"><a href="#4：耦合度低-可维护性高" class="headerlink" title="4：耦合度低,可维护性高"></a>4：耦合度低,可维护性高</h5><p>分离视图层和业务逻辑层也使得WEB应用更易于维护和修改。每层代码修改可以达到无损替换的效果</p>
-<h5 id="5：有利软件工程化管理"><a href="#5：有利软件工程化管理" class="headerlink" title="5：有利软件工程化管理"></a>5：有利软件工程化管理</h5><p>由于不同的层各司其职，每一层不同的应用具有某些相同的特征，有利于通过工程化、工具化管理程序代码。控制器也提供了一个好处，就是可以使用控制器来联接不同的模型和视图去完成用户的需求，这样控制器可以为构造应用程序提供强有力的手段。给定一些可重用的模型和视图，控制器可以根据用户的需求选择模型进行处理，然后选择视图将处理结果显示给用户。</p>
-<h4 id="MVC分层及责任划分："><a href="#MVC分层及责任划分：" class="headerlink" title="MVC分层及责任划分："></a>MVC分层及责任划分：</h4><p><img src="/2021/08/22/%E6%A1%88%E4%BE%8B%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0(JSP+Servlet+MyBatis)/image-20210823141823575.png"></p>
-<h5 id="层次之间的特点："><a href="#层次之间的特点：" class="headerlink" title="层次之间的特点："></a>层次之间的特点：</h5><p>1.下层不知道上层的存在，仅完成自身的功能，不关心结果如何使用</p>
-<p>2.每一层知道下一层的存在，而忽略其他层的存在，只关心结果的取得，不关心结果的实现过程</p>
-<h5 id="3-4JavaBean"><a href="#3-4JavaBean" class="headerlink" title="3.4JavaBean"></a>3.4JavaBean</h5><p>符合特定规范的Java类,是一种可重用的组件</p>
-<h6 id="特定规范："><a href="#特定规范：" class="headerlink" title="特定规范："></a>特定规范：</h6><p>public class,提供无参数构造方法</p>
-<p>属性private</p>
-<p>提供public的setter和getter方法</p>
-<h6 id="功能分类："><a href="#功能分类：" class="headerlink" title="功能分类："></a>功能分类：</h6><p>封装数据:数据Bean   实体类</p>
-<p>封装业务: 业务Bean service  Mapper</p>
-<h4 id="2-商品信息查询的实现"><a href="#2-商品信息查询的实现" class="headerlink" title="2.商品信息查询的实现"></a>2.商品信息查询的实现</h4><p>依次创建pojo、mapper、service（一个serviceimpl接口和service）、control（就是servlet）</p>
-<h4 id="3-商品信息添加的实现"><a href="#3-商品信息添加的实现" class="headerlink" title="3.商品信息添加的实现"></a>3.商品信息添加的实现</h4><p>遇到错误：</p>
-<p><code>Servlet.service() for servlet[com.bjsxt.servlet.ShopSaveServlet] in context with path [/mvc_war_exploded] threw exception java.lang.NullPointerException</code></p>
-<p>错误原因mapper文件中</p>
-<p><code>@Insert(&quot;insert into Shop values(default,#&#123;name&#125;,#&#123;price&#125;,#&#123;production&#125;)&quot;)</code></p>
-<p>写成了</p>
-<p><code>@select(&quot;insert into Shop values(default,#&#123;name&#125;,#&#123;price&#125;,#&#123;production&#125;)&quot;)</code></p>
-<p>很低级的错误，以后要注意</p>
-<h4 id="4-商品删除的实现"><a href="#4-商品删除的实现" class="headerlink" title="4.商品删除的实现"></a>4.商品删除的实现</h4><h4 id="5-商品修改的实现"><a href="#5-商品修改的实现" class="headerlink" title="5.商品修改的实现"></a>5.商品修改的实现</h4>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/22/%E6%A1%88%E4%BE%8B%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0(JSP+Servlet+MyBatis)/">展开全文 >></a>
         </p>
       
 
@@ -1094,6 +489,80 @@
 
 
   
+    <article id="post-案例商品管理系统笔记(JSP+Servlet+MyBatis)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/22/%E6%A1%88%E4%BE%8B%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0(JSP+Servlet+MyBatis)/">案例商品管理系统笔记(JSP+Servlet+MyBatis)</a>
+    </h1>
+  
+
+        
+        <a href="/2021/08/22/%E6%A1%88%E4%BE%8B%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0(JSP+Servlet+MyBatis)/" class="archive-article-date">
+  	<time datetime="2021-08-22T08:45:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="1-登录的实现"><a href="#1-登录的实现" class="headerlink" title="1.登录的实现"></a>1.登录的实现</h4><h5 id="写在前面："><a href="#写在前面：" class="headerlink" title="写在前面："></a>写在前面：</h5><p>1.首先在WEB-INF下创建lib文件，导入mybatis包和数据库包进去，再把配置文件导入到src文件中，其中DBUtil放在Util包下。</p>
+<p>依次创建pojo、mapper、service（一个serviceimpl接口和service）、control（就是servlet）</p>
+<p>要注意：</p>
+<p>delete 、update、insert是不需要设置返回类型的，都是默认返回一个int，只有select才需要</p>
+<p><strong>一定要知道什么时候加”/“,什么时候不加！！！！！</strong></p>
+<p>form action和href的时候不用加</p>
+<p><strong>2.Servlet三步骤：</strong></p>
+<p>   //1.获取前台页面中的数据</p>
+<p>   //2.处理数据，得到结果</p>
+<p>   //3.根据返回的结果给用户做出响应</p>
+        
+          <a class="article-more-a" href="/2021/08/22/%E6%A1%88%E4%BE%8B%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0(JSP+Servlet+MyBatis)/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/22/%E6%A1%88%E4%BE%8B%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0(JSP+Servlet+MyBatis)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-hexo+githun创建blog" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1115,24 +584,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="hexo-github创建blog"><a href="#hexo-github创建blog" class="headerlink" title="hexo+github创建blog"></a>hexo+github创建blog</h2><p>#安装Nodejs<br>node -v    #查看node版本<br>npm -v    #查看npm版本<br>npm install -g cnpm –registry=<a target="_blank" rel="noopener" href="http://registry.npm.taobao.org/">http://registry.npm.taobao.org</a>    #安装淘宝的cnpm 管理器<br>cnpm -v    #查看cnpm版本<br>cnpm install -g hexo-cli    #安装hexo框架<br>hexo -v    #查看hexo版本</p>
-<hr>
-<p>mkdir blog    #创建blog目录<br>cd blog     #进入blog目录<br>sudo hexo init     #生成博客 初始化博客<br>hexo s    #启动本地博客服务<br><a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a>    #本地访问地址<br>hexo n “我的第一篇文章” #创建新的文章<br>#返回blog目录<br>hexo clean #清理<br>hexo g #生成<br>#Github创建一个新的仓库 YourGithubName.github.io</p>
-<p>cnpm install –save hexo-deployer-git #在blog目录下安装git部署插件</p>
-<blockquote>
-<h4 id="配置-config-yml"><a href="#配置-config-yml" class="headerlink" title="配置_config.yml"></a>配置_config.yml</h4></blockquote>
-<pre><code># Deployment
-## Docs: https://hexo.io/docs/deployment.html
-deploy:
-    type: git
-    repo: https://github.com/YourGithubName/YourGithubName.github.io.git
-    branch: master
-</code></pre>
-<hr>
-<p>hexo d    #部署到Github仓库里<br><a target="_blank" rel="noopener" href="https://yourgithubname.github.io/">https://YourGithubName.github.io/</a>  #访问这个地址可以查看博客</p>
-<p> git clone <a target="_blank" rel="noopener" href="https://github.com/litten/hexo-theme-yilia.git">https://github.com/litten/hexo-theme-yilia.git</a> themes/yilia  #下载yilia主题到本地</p>
-<p>#修改hexo根目录下的 _config.yml 文件 ： theme: yilia</p>
-<p>hexo c    #清理一下<br>hexo g    #生成<br>hexo d    #部署到远程Github仓库<br><a target="_blank" rel="noopener" href="https://yourgithubname.github.io/">https://YourGithubName.github.io/</a>  #查看博客​</p>
-
+        
+          <a class="article-more-a" href="/2021/08/21/hexo+githun%E5%88%9B%E5%BB%BAblog/#more">more >></a>
+        
       
 
       
@@ -1198,10 +652,9 @@ deploy:
 <p>SELECT address FROM student; – 查询地址</p>
 <p>SELECT DISTINCT address FROM student; – 去除以上结果集的重复内容</p>
 <p>SELECT NAME,math,english,math+english FROM student;– 计算math和english分数之和</p>
-<p>– 以上结果集中柳青的和为null,因为如果有null参与运算，计算的结果都是null，使用以下操作：<br>SELECT NAME,math,english,math+IFNULL(english,0)FROM student;– 如果出现null用0代替</p>
-<p>– 起别名，使用AS ,如下(当然as可以省略):<br>SELECT NAME,math 数学,english 英语,math + IFNULL(english,0) 总分 FROM student;</p>
-<p>– 条件查询<br>SELECT * FROM student WHERE age&gt;20 &amp;&amp; age&lt;30;– 查询年龄大于20小于30的人<br>SELECT * FROM student WHERE NAME LIKE ‘马%’;– 查询名字第一个是马的人<br>SELECT * FROM student WHERE NAME LIKE ‘_化%’– 查询名字第二个是化的人<br>– 排序查询<br>SELECT * FROM student ORDER BY math ASC;– 按照数学成绩升序进行排序，ASC可以不写，默认升序<br>SELECT * FROM student ORDER BY math ASC,english ASC;– 按照数学成绩升序进行排序,数学成绩一样就按英语成绩升序排序<br>– 聚合函数查询<br>SELECT COUNT(NAME) FROM student;– 统计有多少学生<br>SELECT COUNT(IFNULL(english,0)) AS 英语 FROM student;– 根据英语成绩统计学生人数<br>– 求出math的最大，最小，总分和平均值<br>SELECT MAX(math) FROM student;<br>SELECT MIN(math) FROM student;<br>SELECT SUM(math) FROM student;<br>SELECT AVG(math) FROM student;<br>– 分组查询<br>SELECT sex,AVG(math),COUNT(id) FROM student GROUP BY sex;– 按照性别进行分组，分别查询男女同学的数学平均分和人数(如果分组之后查询的字段不是分组字段没有任何意义(sex,sex)。)<br>– 按照性别进行分组，分别查询男，女同学的数学平均分和人数,要求分数低于70分的不参与分组,且分组之后只显示人数大于2个人的<br>SELECT sex,AVG(math),COUNT(id) FROM student WHERE math&gt;=70 GROUP BY sex;<br>– 分页查询<br>– 每页显示三条数据<br>SELECT * FROM student LIMIT 0,3; – 第一页 0为开始的下标，3为显示的条数<br>SELECT * FROM student LIMIT 3,3; – 第二页</p>
-
+        
+          <a class="article-more-a" href="/2021/08/21/mysql%E7%BB%83%E4%B9%A0/#more">more >></a>
+        
       
 
       
@@ -1339,99 +792,10 @@ deploy:
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="JDBC学习笔记"><a href="#JDBC学习笔记" class="headerlink" title="JDBC学习笔记"></a>JDBC学习笔记</h3><p>1.java程序员不需要关心具体是哪个品牌的数据库，只需要面向JDBC接口写代码。面向接口编程，面向抽象编程，不要面向具体编程</p>
-<h5 id="2-JDBC编程六步（需要背会）："><a href="#2-JDBC编程六步（需要背会）：" class="headerlink" title="2.JDBC编程六步（需要背会）："></a>2.JDBC编程六步（需要背会）：</h5><p>第一步：注册驱动（作用：告诉Java程序，即将要连接的是哪个品牌的数据库）<br>第二步：获取连接（表示JVM的进程和数据库进程之间的通道打开了，这是属于进程之间的通信，重量级的，使用之完后一定要关闭。<br>第三步：获取数据库操作对象（专门执行sql语句的对象）<br>第四步：执行SQL语句（DQL DML……）（使用Statement创建的对象调用executeUpdate方法，实现向表中增删改数据，查用executeQuery方法）<br>             int executeUpdate(insert/delete/update)<br>             ResultSet executeQuery(select)<br>第五步：处理查询结果集（只有当第四步执行的是select语句的时候，才有这第五步处理查询结果集。）<br>第六步：释放资源（使用完资源之后一定要关闭资源。java和数据库之间属于进程间的通信，开启之后一定要关闭）</p>
-<p>4.漏洞：用户名：fdsa<br>           密码：fdsa’ or ‘1’=’1   （密码被当做了sql语句的一部分）<br>           登录成功<br>       这种现象被称为SQL注入（安全隐患）。（黑客经常使用）</p>
-<h5 id="5-导致SQL注入的根本原因是什么？"><a href="#5-导致SQL注入的根本原因是什么？" class="headerlink" title="5.导致SQL注入的根本原因是什么？"></a>5.导致SQL注入的根本原因是什么？</h5><p>​          用户输入的信息中含有sql语句的关键字，并且这些关键字参与sql语句的编辑过程<br>​          导致sql语句的原意被扭曲，进而达到sql注入</p>
-<p> 解决JDBCTest02中的sql注入问题<br>      只要用户提供的信息不参与SQL语句的编译过程，问题就解决了。<br>      即使用户输入的信息中含有SQL语句关键字，但没有参与编译，不起作用<br>      要想用户输入的信息不参与编译，那么必须使用java.sql.PreparedStatement<br>      PreparedStatement接口继承了java.sql.Statement<br>      PreparedStatement是属于编译的数据库操作对象<br>      原理：预先对SQL语句的框架进行编译，然后再给SQL语句传值</p>
-<h5 id="6-对比一下Statement和PreparedStatement"><a href="#6-对比一下Statement和PreparedStatement" class="headerlink" title="6.对比一下Statement和PreparedStatement"></a>6.对比一下Statement和PreparedStatement</h5><p>​          Statement存在sql注入问题，PreparedStatement解决了sql注入问题<br>​          Statement是编译一次，执行一次。PreparedStatement是编译一次，可执行n次。PreparedStatement效率更高<br>​          PreparedStatement会在编译阶段做类型的安全检查<br>​          综上所述：PreparedStatement使用较多，只有极少数的情况下需要使用Statement</p>
-<h5 id="7-什么情况下必须使用Statement？"><a href="#7-什么情况下必须使用Statement？" class="headerlink" title="7.什么情况下必须使用Statement？"></a>7.什么情况下必须使用Statement？</h5><p>​          1.业务要求必须支持SQL注入的时候<br>​          2.业务要求是需要进行sql语句拼接的时候</p>
-<ol start="8">
-<li><h5 id="JDBC事务机制："><a href="#JDBC事务机制：" class="headerlink" title="JDBC事务机制："></a>JDBC事务机制：</h5><p> 1.JDBC中的事务是自动提交的，什么是自动提交？</p>
-<pre><code> 只要执行任意一条DML语句，则自动提交一次，这是JDBC默认的事务行为。
- 但是在实际的业务当中，通常都是n条DML语句共同联合才能完成的，必须保证他们这些DML语句在同一个事务中同时成功或者同时失败
-</code></pre>
-</li>
-<li><h5 id="将自动提交机制改为手动提交"><a href="#将自动提交机制改为手动提交" class="headerlink" title="//将自动提交机制改为手动提交"></a>//将自动提交机制改为手动提交</h5><p> ​        conn.setAutoCommit(false);//开启事务<br> //程序能够走到这里，说明以上程序没有异常，事务结束，手动提交数据<br> ​        conn.commit();//提交事务<br>//遇到异常要回滚<br>​         conn.rollback();//回滚事务</p>
-<h5 id="10-悲观锁乐观锁"><a href="#10-悲观锁乐观锁" class="headerlink" title="10.悲观锁乐观锁"></a>10.悲观锁乐观锁</h5><p> 悲观锁：事务必须要排队执行，数据锁住了，不允许并发（sql语句后加 for update）<br> 乐观锁：支持并发，事务也不需要排队，只不过需要一个版本号</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">8.  package src.com.tx.test;</span><br><span class="line">    import java.sql.*;</span><br><span class="line"></span><br><span class="line">public class JDBCTest01 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Connection conn = null;</span><br><span class="line">        Statement sta = null;</span><br><span class="line">        try &#123;</span><br><span class="line">            **//1.注册驱动**</span><br><span class="line">            try &#123;</span><br><span class="line">                Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);</span><br><span class="line">            &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            **//2.获得连接**</span><br><span class="line">            conn= DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/day715?serverTimezone=UTC&amp;characterEncoding=utf8&amp;useUnicode=true&amp;useSSL=false&quot;,&quot;root&quot;,&quot;200153&quot;);</span><br><span class="line">            **//3.获得执行语句平台**</span><br><span class="line">            sta =conn.createStatement();</span><br><span class="line">            **//4.执行sql语句**</span><br><span class="line">//            String sql=&quot; INSERT INTO `day715`.`student`(`id`,`name`,`phone`,`source`) VALUES ( &#x27;4&#x27;,&#x27;伍毅&#x27;,&#x27;13968978569&#x27;,&#x27;89&#x27;);&quot;;</span><br><span class="line">//            int count=sta.executeUpdate(sql);</span><br><span class="line">//              System.out.println(count);</span><br><span class="line">            String sql=&quot;select id,name,phone,source from student&quot;;</span><br><span class="line">            ResultSet rs=sta.executeQuery(sql);</span><br><span class="line">            **//5.处理查询结果集**</span><br><span class="line">          while (rs.next()) &#123;</span><br><span class="line">              //光标指向的行有数据</span><br><span class="line">              //取数据</span><br><span class="line">              //getString()方法的特点是，不管数据库中的数据类型是什么，都以String的形式取出.</span><br><span class="line">              //columnIndex的含义是数据库表的列</span><br><span class="line">              String id = rs.getString(&quot;id&quot;);</span><br><span class="line">              String name = rs.getString(&quot;name&quot;);</span><br><span class="line">              String phone = rs.getString(&quot;phone&quot;);</span><br><span class="line">              String source = rs.getString(&quot;source&quot;);</span><br><span class="line">              System.out.println(id+&quot;,&quot;+name+&quot;,&quot;+phone+&quot;,&quot;+source);</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">​    &#125; catch (SQLException e) &#123;</span><br><span class="line">​        e.printStackTrace();</span><br><span class="line">​    &#125;finally &#123;</span><br><span class="line">​        //6.释放资源</span><br><span class="line">​        //为保证释放所有资源，写在finally语句中</span><br><span class="line">​        //按照从大到小的顺序释放</span><br><span class="line">​        //分别对其try..catch</span><br><span class="line">​        if(sta!=null)&#123;</span><br><span class="line">​            try &#123;</span><br><span class="line">​                sta.close();</span><br><span class="line">​            &#125; catch (SQLException e) &#123;</span><br><span class="line">​                e.printStackTrace();</span><br><span class="line">​            &#125;</span><br><span class="line">​        &#125;</span><br><span class="line">​        if(conn!=null)&#123;</span><br><span class="line">​            try &#123;</span><br><span class="line">​                conn.close();</span><br><span class="line">​            &#125; catch (SQLException e) &#123;</span><br><span class="line">​                e.printStackTrace();</span><br><span class="line">​            &#125;</span><br><span class="line">​        &#125;</span><br><span class="line">​    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">package src.com.tx.test;</span><br><span class="line"></span><br><span class="line">import java.sql.*;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line">import java.util.Scanner;</span><br><span class="line">/*</span><br><span class="line"></span><br><span class="line">#####    1.解决JDBCTest02中的sql注入问题</span><br><span class="line"></span><br><span class="line">​          只要用户提供的信息不参与SQL语句的编译过程，问题就解决了。</span><br><span class="line">​          即使用户输入的信息中含有SQL语句关键字，但没有参与编译，不起作用</span><br><span class="line">​          要想用户输入的信息不参与编译，那么必须使用java.sql.PreparedStatement</span><br><span class="line">​          PreparedStatement接口继承了java.sql.Statement</span><br><span class="line">​          PreparedStatement是属于编译的数据库操作对象</span><br><span class="line">​          原理：预先对SQL语句的框架进行编译，然后再给SQL语句传值</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">public class JDBCTest03 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        while (true) &#123;</span><br><span class="line">            /* 初始化一个界面 */</span><br><span class="line">            Map&lt;String, String&gt; userloginInfo = initUI();</span><br><span class="line">            //验证用户名和密码</span><br><span class="line">            boolean loginSuccess = login(userloginInfo);</span><br><span class="line">            System.out.println(loginSuccess ? &quot;登录成功&quot; : &quot;登录失败&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;`</span><br></pre></td></tr></table></figure>
-
-
-<pre><code>/*
-用户登录
- */
-private static boolean login(Map&lt;String, String&gt; userloginInfo) &#123;
-    boolean loginSuccess=false;
-    String username=userloginInfo.get(&quot;username&quot;);
-    String password=userloginInfo.get(&quot;password&quot;);
-    //JDBC代码
-    PreparedStatement psta = null;
-    Connection conn = null;
-    ResultSet rs = null;
-    try &#123;
-        //1.注册驱动
-        Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);
-        //2.获取数据库连接
-        conn = DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/day715?serverTimezone=UTC&amp;characterEncoding=utf8&amp;useUnicode=true&amp;useSSL=false&quot;, &quot;root&quot;, &quot;200153&quot;);
-        //3.获取数据库对象
-        //SQL语句的框架，其中一个？表示一个占位符，接收一个值，注意：占位符不能用单引号括起来。
-        String sql = &quot;select * from login where username=? and password=?&quot;;
-        //程序执行到此处，会发送sql语句给DBMS，然后DBMS进行sql语句的预先编译
-        psta = conn.prepareStatement(sql);
-        //给占位符？传值（第一个？的下标是1，第二个是2。JDBC中所有的下标从1开始）
-        psta.setString(1, username);
-        psta.setString(2, password);
-        //4.执行sql语句
-        rs=psta.executeQuery();
-        if(rs.next())&#123;
-            //登录成功
-            loginSuccess =true;
-        &#125;
-    &#125; catch (ClassNotFoundException | SQLException e) &#123;
-        e.printStackTrace();
-    &#125; finally &#123;
-        //5.释放资源
-        if (rs != null) &#123;
-            try &#123;
-                rs.close();
-            &#125; catch (SQLException e) &#123;
-                e.printStackTrace();
-            &#125;
-            if (conn != null) &#123;
-                try &#123;
-                    conn.close();
-                &#125; catch (SQLException e) &#123;
-                    e.printStackTrace();
-                &#125;
-                if (psta != null) &#123;
-                    try &#123;
-                        psta.close();
-                    &#125; catch (SQLException e) &#123;
-                        e.printStackTrace();
-                    &#125;
-                &#125;
-            &#125;
-        &#125;
-        return loginSuccess;
-    &#125;
-&#125;
-private static Map&lt;String, String&gt; initUI() &#123;
-    Scanner sc = new Scanner(System.in);
-    System.out.println(&quot;用户名：&quot;);
-
-    String username = sc.nextLine();
-    System.out.println(&quot;密码：&quot;);
-
-    String password = sc.nextLine();
-    Map&lt;String, String&gt; userloginInfo = new HashMap&lt;&gt;();
-    userloginInfo.put(&quot;username&quot;, username);
-    userloginInfo.put(&quot;password&quot;, password);
-    return userloginInfo;
-&#125;
-&#125;
-</code></pre>
-
+<h5 id="2-JDBC编程六步（需要背会）："><a href="#2-JDBC编程六步（需要背会）：" class="headerlink" title="2.JDBC编程六步（需要背会）："></a>2.JDBC编程六步（需要背会）：</h5><p>第一步：注册驱动（作用：告诉Java程序，即将要连接的是哪个品牌的数据库）<br>第二步：获取连接（表示JVM的进程和数据库进程之间的通道打开了，这是属于进程之间的通信，重量级的，使用之完后一定要关闭。<br>第三步：获取数据库操作对象（专门执行sql语句的对象）</p>
+        
+          <a class="article-more-a" href="/2021/08/21/JDBC%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more">more >></a>
+        
       
 
       
@@ -1645,7 +1009,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">一个个人的小博客&lt;br&gt;&lt;br&gt;记录学习记录生活&lt;br&gt;----tianxiao</div>
   	  	
     	</section>
     
