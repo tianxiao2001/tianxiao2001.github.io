@@ -16,7 +16,7 @@
 <meta property="og:description" content="一、  EL表达式的使用EL（Expression Language） 是为了使JSP写起来更加简单。表达式语言的灵感来自于 ECMAScript 和 XPath 表达式语言，它提供了在 JSP 中简化表达式的方法，让Jsp的代码更加简化。EL 语法很简单，使用上很方便。${}是其语法的关键标志 1.1 EL表达式简化从域中取值EL表达式中定义了一些可以帮助我们快捷从域对象中取出数据的写法,基本语">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-08-25T05:28:14.000Z">
-<meta property="article:modified_time" content="2021-08-25T06:37:13.538Z">
+<meta property="article:modified_time" content="2021-08-26T03:27:15.805Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -228,6 +228,9 @@
 <h3 id="2-1操作域对象的标签"><a href="#2-1操作域对象的标签" class="headerlink" title="2.1操作域对象的标签:"></a>2.1操作域对象的标签:</h3><p>&lt;c:set&gt;    向域对象中放入数据  setAttribute</p>
 <p>&lt;c:out&gt;   从域对象中取出数据  getAttribute</p>
 <p>&lt;c:remove&gt; 从域对象中移除数据  removeAttribute</p>
+<p><strong>jsp实现双行变色：</strong> </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;c:forEach items=<span class="string">&quot;$&#123;requestScope.all&#125;&quot;</span> <span class="keyword">var</span>=<span class="string">&quot;t1&quot;</span> varStatus=<span class="string">&quot;vs&quot;</span>&gt;</span><br><span class="line">    &lt;c:<span class="keyword">if</span> test=<span class="string">&quot;$&#123;vs.count%2==0&#125;&quot;</span>&gt;</span><br><span class="line">        &lt;tr  bgcolor=<span class="string">&quot;#faebd7&quot;</span> align=<span class="string">&quot;center&quot;</span>&gt;</span><br><span class="line">    &lt;/c:<span class="keyword">if</span>&gt;</span><br><span class="line">    &lt;c:<span class="keyword">if</span> test=<span class="string">&quot;$&#123;vs.count%2!=0&#125;&quot;</span>&gt;</span><br><span class="line">        &lt;tr  bgcolor=<span class="string">&quot;#7fffd4&quot;</span> align=<span class="string">&quot;center&quot;</span>&gt;</span><br><span class="line">    &lt;/c:<span class="keyword">if</span>&gt;</span><br></pre></td></tr></table></figure>
+
 <h2 id="一、-JSTL格式化标签"><a href="#一、-JSTL格式化标签" class="headerlink" title="一、  JSTL格式化标签"></a>一、  JSTL格式化标签</h2><h3 id="3-1-格式化标签库"><a href="#3-1-格式化标签库" class="headerlink" title="3.1 格式化标签库"></a>3.1 格式化标签库</h3><p>格式化标签库,也叫作fmt标签,是JTSL中的第二大组成部分,主要解决数据显示格式问题,让JSP页面的数据格式更加规范</p>
 <p><strong>格式化标签库导入的语句为:</strong></p>
 <p>  &lt;%@ **taglib** **prefix**=”**fmt**” **uri**=”**<a target="_blank" rel="noopener" href="http://java.sun.com/jsp/jstl/fmt**&quot;%&gt;">http://java.sun.com/jsp/jstl/fmt**&quot;%&gt;</a>  </p>
@@ -646,6 +649,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2021/08/26/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Spring学习笔记
+        
+      </div>
+    </a>
   
   
     <a href="/2021/08/25/JSP-Java%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%A1%B5%E9%9D%A2%E6%8A%80%E6%9C%AF/" id="article-nav-older" class="article-nav-link-wrap">
