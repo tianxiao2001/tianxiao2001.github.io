@@ -152,6 +152,77 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-多表连接" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/">多表连接</a>
+    </h1>
+  
+
+        
+        <a href="/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/" class="archive-article-date">
+  	<time datetime="2021-10-18T16:16:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>*<strong>多表连接* 分为3种</strong></p>
+<ol>
+<li><p><strong>内连接</strong></p>
+</li>
+<li><p><strong>外连接</strong></p>
+</li>
+<li><p><strong>自连接</strong></p></li></ol>
+        
+          <a class="article-more-a" href="/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Linux常用命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1022,80 +1093,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/08/22/%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-案例商品管理系统笔记(JSP+Servlet+MyBatis)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/22/%E6%A1%88%E4%BE%8B%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0(JSP+Servlet+MyBatis)/">案例商品管理系统笔记(JSP+Servlet+MyBatis)</a>
-    </h1>
-  
-
-        
-        <a href="/2021/08/22/%E6%A1%88%E4%BE%8B%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0(JSP+Servlet+MyBatis)/" class="archive-article-date">
-  	<time datetime="2021-08-22T08:45:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="1-登录的实现"><a href="#1-登录的实现" class="headerlink" title="1.登录的实现"></a>1.登录的实现</h4><h5 id="写在前面："><a href="#写在前面：" class="headerlink" title="写在前面："></a>写在前面：</h5><p>1.首先在WEB-INF下创建lib文件，导入mybatis包和数据库包进去，再把配置文件导入到src文件中，其中DBUtil放在Util包下。</p>
-<p>依次创建pojo、mapper、service（一个serviceimpl接口和service）、control（就是servlet）</p>
-<p>要注意：</p>
-<p>delete 、update、insert是不需要设置返回类型的，都是默认返回一个int，只有select才需要</p>
-<p><strong>一定要知道什么时候加”/“,什么时候不加！！！！！</strong></p>
-<p>form action和href的时候不用加</p>
-<p><strong>2.Servlet三步骤：</strong></p>
-<p>   //1.获取前台页面中的数据</p>
-<p>   //2.处理数据，得到结果</p>
-<p>   //3.根据返回的结果给用户做出响应</p>
-        
-          <a class="article-more-a" href="/2021/08/22/%E6%A1%88%E4%BE%8B%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0(JSP+Servlet+MyBatis)/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/22/%E6%A1%88%E4%BE%8B%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0(JSP+Servlet+MyBatis)/">展开全文 >></a>
         </p>
       
 
