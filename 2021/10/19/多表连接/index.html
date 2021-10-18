@@ -8,25 +8,30 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>多表连接 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="*多表连接* 分为3种  内连接  外连接  自连接">
+  <meta name="description" content="SQL各种连接——自连接、内连接、外连接、交叉连接的使用首先准备了两个表 （Student 和 Course），其中 Student 表中的 C_S_Id 字段为外键列，关联的是 Course 表的 C_Id 主键列。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="多表连接">
 <meta property="og:url" content="http://example.com/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="*多表连接* 分为3种  内连接  外连接  自连接">
+<meta property="og:description" content="SQL各种连接——自连接、内连接、外连接、交叉连接的使用首先准备了两个表 （Student 和 Course），其中 Student 表中的 C_S_Id 字段为外键列，关联的是 Course 表的 C_Id 主键列。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/v2-6ec46bc0816073d473f195d9ceb7d01a_720w.jpg">
-<meta property="og:image" content="http://example.com/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/v2-3607f907bc26c663c678f8706385cfcc_720w.jpg">
-<meta property="og:image" content="http://example.com/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/v2-7bb42b78af145cca8d193ddc019d41f0_720w.jpg">
-<meta property="og:image" content="http://example.com/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/v2-bfb892ca582b6473771aeba3cabc8ccf_720w.jpg">
-<meta property="og:image" content="http://example.com/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/v2-3174b996b60c0240bd31a8bb9104852f_720w.jpg">
-<meta property="og:image" content="http://example.com/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/v2-f606eca416d7fa4870a38ef7ab06dd07_720w.jpg">
-<meta property="og:image" content="http://example.com/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/v2-d68011156fae543c7b8c54eede556665_720w.jpg">
+<meta property="og:image" content="http://example.com/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/1041184-20170411005417188-1525489639.png">
+<meta property="og:image" content="http://example.com/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/1041184-20170411005525251-2052052646.png">
+<meta property="og:image" content="http://example.com/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/1041184-20170411005553360-472438928.png">
+<meta property="og:image" content="http://example.com/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/1041184-20170411005731454-130197195.png">
+<meta property="og:image" content="http://example.com/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/1041184-20170411010945641-971154527.png">
+<meta property="og:image" content="http://example.com/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/1041184-20170411012304297-770080129.png">
+<meta property="og:image" content="http://example.com/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/1041184-20170411012314141-1505088510.png">
+<meta property="og:image" content="http://example.com/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/1041184-20170411012402813-1908255568.png">
+<meta property="og:image" content="http://example.com/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/copycode.gif">
+<meta property="og:image" content="http://example.com/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/copycode.gif">
+<meta property="og:image" content="http://example.com/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/1041184-20170411001936001-581979730.png">
+<meta property="og:image" content="http://example.com/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/1041184-20170411002021985-1082639720.png">
 <meta property="article:published_time" content="2021-10-18T16:16:09.000Z">
-<meta property="article:modified_time" content="2021-10-18T16:18:14.002Z">
+<meta property="article:modified_time" content="2021-10-18T17:04:12.085Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/v2-6ec46bc0816073d473f195d9ceb7d01a_720w.jpg">
+<meta name="twitter:image" content="http://example.com/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/1041184-20170411005417188-1525489639.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -182,95 +187,53 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>*<strong>多表连接* 分为3种</strong></p>
-<ol>
-<li><p><strong>内连接</strong></p>
-</li>
-<li><p><strong>外连接</strong></p>
-</li>
-<li><p><strong>自连接</strong></p>
-<span id="more"></span></li>
-</ol>
-<hr>
-<p>首先，我们要注意到，连接有什么主意事项</p>
-<p>我们先是连接两个表，如下</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from scott.emp, scott.dept</span><br><span class="line">where scott.emp.ename = &#x27;SMITH&#x27;;</span><br></pre></td></tr></table></figure>
+        <h3 id="SQL各种连接——自连接、内连接、外连接、交叉连接的使用"><a href="#SQL各种连接——自连接、内连接、外连接、交叉连接的使用" class="headerlink" title="SQL各种连接——自连接、内连接、外连接、交叉连接的使用"></a>SQL各种连接——自连接、内连接、外连接、交叉连接的使用</h3><p>首先准备了两个表 （Student 和 Course），其中 Student 表中的 C_S_Id 字段为外键列，关联的是 Course 表的 C_Id 主键列。</p>
+<span id="more"></span>
 
-<p><img src="/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/v2-6ec46bc0816073d473f195d9ceb7d01a_720w.jpg" alt="img"></p>
-<p>会发现，出现了<em>笛卡尔集</em></p>
-<ul>
-<li>主要忽略了一个连接条件或者说一个连接条件失效了</li>
-<li>第一张表中的数据与第二张表中的所有数据（行）都有连接，造成数据的交集。</li>
-</ul>
-<p>开发中，需要避免<em>笛卡尔集</em></p>
-<p>如果要避免的话，我们需要包含一个有效连接条件的 where 子句。</p>
-<hr>
-<h2 id="1-内连接–-两个表（连接）中某一数据项相等的连接叫内连接。也叫等值连接。"><a href="#1-内连接–-两个表（连接）中某一数据项相等的连接叫内连接。也叫等值连接。" class="headerlink" title="1)内连接– 两个表（连接）中某一数据项相等的连接叫内连接。也叫等值连接。"></a>1)<strong>内连接</strong>– 两个表（连接）中某一数据项相等的连接叫内连接。也叫等值连接。</h2><p><strong>内连接的运算顺序</strong></p>
-<ol>
-<li>参与的数据表（或连接）中的每列与其它数据表（或连接）的列匹配，会形成一个临时表。</li>
-<li>将满足数据项相等的记录从临时数据表中选择出来。</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select * from scott.dept d, scott.emp e</span><br><span class="line">where d.deptno = e.deptno</span><br><span class="line">and e.ename = &#x27;SMITH&#x27;;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/1041184-20170411005417188-1525489639.png" alt="img"></p>
+<p><strong>内连接（inner join）</strong>：满足on条件表达式，内连接是取满足条件表达式的两个表的交集（即两个表都有的数据）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 select * from Student s</span><br><span class="line">2 inner join Course c on s.C_S_Id=c.C_Id</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/v2-3607f907bc26c663c678f8706385cfcc_720w.jpg" alt="img"></p>
-<p>可以看到，不会出现笛卡尔集。</p>
-<p>当然，除了上面查找所有列，还可以选择查找指定列。</p>
-<p>出了以上的写法之外，Oracle还提供了标准写法</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select * from scott.dept d inner join scott.emp e</span><br><span class="line">on d.deptno = e.deptno</span><br><span class="line">and e.ename = &#x27;SMITH&#x27;;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/1041184-20170411005525251-2052052646.png" alt="img"></p>
+<p><strong>外连接（outer join）分为</strong>：左外连接（left join / left outer join）、右外连接（right join / right outer join）和全外连接（full join / full outer join）</p>
+<p>左外连接（left join / left outer join）: 满足on条件表达式，左外连接是以左表为准，返回左表所有的数据，与右表匹配的则有值，没有匹配的则以空（null）取代。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 select * from Student s</span><br><span class="line">2 left join Course c on s.C_S_Id=c.C_Id</span><br></pre></td></tr></table></figure>
 
-<h2 id="2）外连接（非等值连接）–-用来查询一张表在另一张中没有关联数据的信息。"><a href="#2）外连接（非等值连接）–-用来查询一张表在另一张中没有关联数据的信息。" class="headerlink" title="2）外连接（非等值连接）– 用来查询一张表在另一张中没有关联数据的信息。"></a>2）<strong>外连接（非等值连接）</strong>– 用来查询一张表在另一张中没有关联数据的信息。</h2><p>外连接有三种形式</p>
-<ul>
-<li>左外连接 left outer join</li>
-<li>右外连接 right outer join</li>
-<li>全外连接 full outer join</li>
-</ul>
-<p>注意到所使用的两个表</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from scott.emp;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/1041184-20170411005553360-472438928.png" alt="img"></p>
+<p>右外连接（right join / right outer join）：满足on条件表达式，右外连接是以右表为准，返回右表所有的数据，与左表匹配的则有值，没有匹配的则以空（null）取代。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 select * from Student s</span><br><span class="line">2 right join Course c on s.C_S_Id=c.C_Id</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/v2-7bb42b78af145cca8d193ddc019d41f0_720w.jpg" alt="img"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from scott.dept;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/1041184-20170411005731454-130197195.png" alt="img"></p>
+<p>全外连接（full join / full outer join）：满足on条件表达式，返回两个表符合条件的所有行，a表没有匹配的则a表的列返回null，b表没有匹配的则b表的列返回null，即返回的是左连接和右连接的并集。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 select * from Student s</span><br><span class="line">2 full join Course c on s.C_S_Id=c.C_Id</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/v2-bfb892ca582b6473771aeba3cabc8ccf_720w.jpg" alt="img"></p>
-<blockquote>
-<p>先看普通的连接——<em><strong>等值连接</strong></em></p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from scott.dept d, scott.emp e</span><br><span class="line">where d.deptno = e.deptno;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/1041184-20170411010945641-971154527.png" alt="img"></p>
+<p><strong>交叉连接（cross join）</strong>：交叉连接将会返回被连接的两个表的笛卡尔积，返回结果的行数等于两个表行数的乘积。</p>
+<p>不加条件返回两个表行数的乘积：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 select * from Student s</span><br><span class="line">2 cross join Course c </span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/v2-3174b996b60c0240bd31a8bb9104852f_720w.jpg" alt="img"></p>
-<p>可以看到这是把两个表所有数据都显示出来</p>
-<blockquote>
-<p><em><strong>左外连接</strong></em></p>
-</blockquote>
-<ol>
-<li>技巧：如果是左外，就在右边加 + 号。</li>
-<li>左边的表会展示出所有的数据，右边表没有对应的数据则显示 null。</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from scott.dept d, scott.emp e</span><br><span class="line">where d.deptno = e.deptno(+);</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/1041184-20170411012304297-770080129.png" alt="img"></p>
+<p><img src="/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/1041184-20170411012314141-1505088510.png" alt="img"></p>
+<p>加上条件返回满足条件表达式的两个表的行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 select * from Student s</span><br><span class="line">2 cross join Course c </span><br><span class="line">3 where s.C_S_Id=c.C_Id</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/v2-f606eca416d7fa4870a38ef7ab06dd07_720w.jpg" alt="img"></p>
-<p><em><strong>左外连接</strong></em>的<em>标准写法</em></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from scott.dept d left outer join scott.emp e</span><br><span class="line">on d.deptno = e.deptno;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/1041184-20170411012402813-1908255568.png" alt="img"></p>
+<p>PS：cross join后加条件只能用where,不能用on，这一点跟后面的自连接一样。</p>
+<p><strong>自连接</strong>：自连接，连接的两个表都是同一个表，即自己连接自己。</p>
+<p><a href="javascript:void(0);"><img src="/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/copycode.gif" alt="复制代码"></a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1 -- 查询出男生身高比女生身高矮的学生信息</span><br><span class="line">2 select s1.S_Name,s1.S_Sex,s1.S_Height,s2.S_Name,s2.S_Sex,s2.S_Height  </span><br><span class="line">3 from Student s1,</span><br><span class="line">4 Student s2 </span><br><span class="line">5 where s1.S_BirthDate=s2.S_BirthDate</span><br><span class="line">6 and s1.S_Height&lt;s2.S_Height</span><br><span class="line">7 and s1.S_Sex=&#x27;男&#x27; </span><br><span class="line">8 and s2.S_Sex=&#x27;女&#x27;</span><br></pre></td></tr></table></figure>
 
-<p><em>书写的时候，需要注意：where 需要改为 on</em></p>
-<blockquote>
-<p><em><strong>右外连接</strong></em></p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select * from scott.dept d, scott.emp e</span><br><span class="line">where d.deptno(+) = e.deptno;</span><br><span class="line"></span><br><span class="line">select * from scott.dept d right outer join scott.emp e</span><br><span class="line">on d.deptno = e.deptno;</span><br></pre></td></tr></table></figure>
+<p><a href="javascript:void(0);"><img src="/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/copycode.gif" alt="复制代码"></a></p>
+<p><img src="/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/1041184-20170411001936001-581979730.png" alt="img"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1 --查询出学生身高一样但是学号不一样的学生信息</span><br><span class="line">2 select * from Student s1,Student s2</span><br><span class="line">3 where s1.S_Height=s2.S_Height</span><br><span class="line">4 and s1.S_StuNo&lt;&gt;s2.S_StuNo</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>*<strong>全外连接*</strong></p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from scott.dept d full outer join scott.emp e</span><br><span class="line">on d.deptno = e.deptno;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/1041184-20170411002021985-1082639720.png" alt="img"></p>
+<p>由于表的数据的原因，所以自连接的示例可能不太容易理解。可以看下面这个示例，根据表名查询出表的主外键约束名，示例如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1 select a.Name as 表名,b.Xtype as 键类型,b.Name as 键名</span><br><span class="line">2 from sysobjects a,sysobjects b</span><br><span class="line">3 where a.ID=b.parent_obj and a.name=&#x27;Student&#x27;</span><br><span class="line">4 and b.Xtype in(&#x27;F&#x27;,&#x27;PK&#x27;)</span><br></pre></td></tr></table></figure>
 
-<h2 id="3）自连接"><a href="#3）自连接" class="headerlink" title="3）自连接"></a>3）<strong>自连接</strong></h2><ul>
-<li>在开发中使用比较广泛</li>
-<li>使用自连接的时候，相当于复制了一个镜像对象出来，并可以当做另外一张表来处理。</li>
-<li>使用了自连接可以把一张表当做多张表来使用，获取一些比较特殊的数据。</li>
-<li>使用技巧：可以考虑把它当做外键来操作使用。</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-- 创建一个临时表，数据来自 scott.emp</span><br><span class="line">create table tb_temp as select * from scott.emp;</span><br><span class="line"></span><br><span class="line">-- 关键厘清对象之间的关系</span><br><span class="line">select e1.empno, e1.ename, e1.mgr, e2.ename</span><br><span class="line">from scott.emp e1, tb_temp e2</span><br><span class="line">where e1.mgr = e2.empno</span><br><span class="line">and e1.ename = &#x27;SMITH&#x27;;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2021/10/19/%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5/v2-d68011156fae543c7b8c54eede556665_720w.jpg" alt="img"></p>
+<p>内连接如果没有指定连接条件的话，和笛卡尔积的交叉连接结果一样，但是不同于笛卡尔积的地方是，没有笛卡尔积那么复杂要先生成行数乘积的数据表，内连接的效率要高于笛卡尔积的交叉连接。</p>
+<p>最后说明一下，交叉连接如果有WHERE子句的话，往往会先生成两个表行数乘积的行的数据表然后再根据WHERE条件从中选择。 </p>
+<p>因此，如果两个表数据量太大，将会非常非常慢，不建议使用。</p>
 
       
 
